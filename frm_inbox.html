@@ -1,0 +1,504 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <head>
+    <title></title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=windows-1256">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script type="text/javascript" src="scripts/jalali.js"></script>
+<script type="text/javascript" src="scripts/jquery.min.js"></script>
+<script type="text/javascript" src="scripts/main_script.js"></script>
+
+
+  </head>
+  
+  <body dir="rtl" style="font-family: tahoma; font-size: 12px;">
+    
+    <div>
+      <table>
+	<tbody>
+	  <tr>
+	    <td><img src="images/mize_kar.png"/></td>
+	    <td>
+	      <table>
+		<tbody>
+		  <tr>
+		    
+		  </tr>
+		  
+		</tbody>
+	      </table>
+	      
+	      
+	    </td>
+	  </tr>
+	</tbody>
+      </table>
+      
+      
+      
+    </div>
+    <div>
+      
+      
+      
+      
+      <table><tbody><tr>
+
+	<td><input id="obj_chk_unread" type="checkbox"/></td>
+	<td>نمایش نامه های خوانده نشده</td>
+	<td>|</td>
+	<td><input id="obj_chk_read" type="checkbox"/></td>
+	<td>خوانده شده</td>
+	<td>|</td>
+	<td><input id="obj_chk_sent" type="checkbox"/></td>
+	<td>ارجاع شده</td>
+	<td>|</td>
+	<td><input id="obj_chk_baygani" type="checkbox"/></td>
+	<td>بایگانی شده</td>
+	<td>|</td>
+	<td>از تاریخ</td>
+	<td><input id="obj_from" type="textbox" style="width: 70px;"/></td>
+	<td></td>
+	<td>تا</td>
+	<td><input id="obj_to" type="textbox" id="obj_txt_search" style="width: 70px;"/></td>
+	<td>|</td>
+	<td>جستجو</td>
+	<td><input id="obj_search" type="textbox" style="width: 90px;"/></td>
+	<td><a href="#" onclick="calltbl()">تائید</a></td>
+	
+	
+	
+      </tr></tbody></table>
+      
+
+      <br/>
+    </div>
+ <style type="text/css">
+  #tbl_menu td {
+    border-color: #325027;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 12px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+  #tbl_menu td a{
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none;
+}
+
+#tbl_menu td:hover {
+    background-color: #FFE7E7;
+    cursor: pointer;
+}
+ </style>
+ <div>
+
+  <table id="tbl_menu">
+    <tbody>
+      <tr>
+	
+	<td onclick="getSelectedtoArchive()"> انتقال به بایگانی </td>
+	<td>ارجاع </td>
+	
+	
+      </tr>
+      
+    </tbody>
+    
+  </table>
+  
+ </div>
+    
+   
+   <style type="text/css">
+
+
+
+
+   #detail{
+  border-style: solid;
+  border-width:1px;
+  border-color: #CCCCCC;
+  border-radius: 10px 10px 0px 0px;
+  -moz-border-radius: 10px 10px 0px 0px;
+  font-size: 10px;
+  margin-bottom: 10px;
+  background-color: #00408e;
+   }
+   
+   .td_divide_det
+   {
+    border-left: solid;
+    border-bottom: solid;
+    border-width: 1px;
+    border-color: #CCCCCC;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+ 
+   }
+   .td_divide_title
+   {
+    border-left: solid;
+    border-bottom: solid;
+    border-width: 1px;
+    border-color: #DDDAFF;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    color: yellow;
+    
+   }
+   .td_divide_title_end
+   {
+    
+    border-bottom: solid;
+    border-width: 1px;
+    border-color: #DDDAFF;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    color: yellow;
+    
+   }
+   .td_divide_det_end
+   {
+    
+    border-bottom: solid;
+    border-width: 1px;
+    border-color: #CCCCCC;
+    
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    
+    
+    
+   }
+.trrrr_unread
+{
+background-color: #DAFDF9;
+font-weight: bold;
+cursor: pointer;
+}
+
+.trrrr_read
+{
+background-color: white;
+font-weight: normal;
+cursor: pointer;
+}
+
+.trrrr_sent
+{
+background-color: #BDBDBD;
+font-weight: normal;
+cursor: pointer;
+}
+
+
+#dcdcdc:hover
+{
+background-color: yellow;
+}
+
+
+   </style>
+   
+   
+   
+   
+   
+   <div id="___example"></div>
+   
+
+<style type="text/css">
+/* Z-index of #mask must lower than #boxes .window */
+#mask {
+position:fixed;
+z-index:999000;
+background-color:#000;
+display:none;
+top:0px;
+left: 0px;
+right:0px;
+bottom: 0px;
+}
+#boxes .window {
+position:fixed;
+width:440px;
+height:200px;
+display:none;
+z-index:999999;
+padding:20px;
+}
+/* Customize your modal window here, you can add background image too */
+#boxes #dialog {
+width:375px;
+height:203px;
+}
+
+#tbl_date td
+{
+  border-style: solid;
+  border-width:1px;
+  border-color: #CCCCCC;
+  border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px;
+  font-size: 10px;
+}
+
+
+.mozooo {
+	
+	/*font-family: BNazaninRegular;*/
+	font-size: 13px;
+	font-weight: bold;
+}
+
+
+</style>
+
+
+<script type="application/x-javascript">
+// startup script
+
+$("#obj_from").mask("1399/99/99");
+$("#obj_to").mask("1399/99/99");
+
+
+
+var currentTime = new Date();
+var month = currentTime.getMonth() - 3;
+
+var year = currentTime.getFullYear();
+if (month < 1) {
+  month = 11;
+  year = currentTime.getFullYear()-1;
+}
+var day = currentTime.getDate();
+
+var sss="1393/03/31"
+document.getElementById("obj_from").value=sss;
+
+sss="";
+
+ month = currentTime.getMonth() ;
+ //day = currentTime.getDate();
+ year = currentTime.getFullYear()+1;
+sss=convert_Milady_to_shamsi(String(year)+"/"+String(month)+"/"+String(day))
+document.getElementById("obj_to").value=sss;
+document.getElementById("obj_chk_unread").checked=true;
+document.getElementById("obj_chk_read").checked=true;
+
+
+
+</script>
+
+   
+<script type="application/x-javascript">
+  
+  
+  function calltbl() {
+    fetch_tbl();
+  }
+  
+  
+  function readInbox() {
+    var _obj_chk_unread = document.getElementById("obj_chk_unread").checked;
+    var _obj_chk_read = document.getElementById("obj_chk_read").checked;
+    var _obj_chk_sent = document.getElementById("obj_chk_sent").checked;
+    var _obj_from = document.getElementById("obj_from").value;
+    var _obj_to = document.getElementById("obj_to").value;
+    var _obj_search = document.getElementById("obj_search").value;
+    var _obj_chk_baygani = document.getElementById("obj_chk_baygani").checked;
+    var sss=
+    "_obj_chk_unreadzzz"+_obj_chk_unread+
+    "sazw_obj_chk_readzzz"+_obj_chk_read+
+    "sazw_obj_chk_sentzzz"+_obj_chk_sent+
+        "sazw_obj_chk_bayganizzz"+_obj_chk_baygani+
+    "sazw_obj_fromzzz"+_obj_from+
+    "sazw_obj_tozzz"+_obj_to+
+    "sazw_obj_searchzzz"+_obj_search;
+
+    
+    return sss;
+  }
+  
+  
+  
+function fetch_tbl() {
+  
+    
+       if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+
+    } else {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+	{
+            var str = xmlhttp.responseText;
+	    var br=str.split("|");
+	    var hr=[]
+	    for (var i=1;i<br.length;i++) {
+	      //var arr = [];
+	      //alert(br[i].split("$").length);
+	      var _ssss="";
+	      _ssss=String(br[i]);
+	      var sqq=_ssss.split("$");
+	      hr.push(sqq);
+	      /*
+	      arr.push("<img src=\"images/"+br[i].split("$")[0]+"_letter.gif\" /> ");
+	      arr.push(br[i].split("$")[1]);
+	      arr.push(br[i].split("$")[2]);
+	      arr.push(br[i].split("$")[3]);
+	      arr.push(br[i].split("$")[4]);
+	      arr.push(br[i].split("$")[5]);
+	      arr.push(br[i].split("$")[6]);
+	      arr.push(br[i].split("$")[7]);
+	      arr.push(br[i].split("$")[8]);
+	      arr.push(br[i].split("$")[9]);
+	      arr.push(br[i].split("$")[10]);
+	      arr.push(br[i].split("$")[11]);
+	      arr.push("<a href='#' onclick='openletter("+br[i].split("$")[1]+")'>ورود به نامه</a>")
+	      */
+	    
+	      
+	    }
+	    var str="";
+	    for (var i=0;i<hr.length;i++) {
+	      
+	      cls="";
+	      if (hr[i][0]=="1") {cls="trrrr_unread";}
+	      if (hr[i][0]=="2") {cls="trrrr_read";}
+	      if (hr[i][0]=="3") {cls="trrrr_sent";}
+	      
+	        var _str=
+
+'  <tr id="dcdcdc" class="'+cls+'" > '+
+'    <td>  <input type="checkbox" id="chkpri___'+hr[i][1]+'"/> </td>   '+
+'    <td onclick="openletter(\''+hr[i][1]+'\');" class="td_divide_det">'+hr[i][2]+'</td>'+
+'    <td onclick="openletter(\''+hr[i][1]+'\');" class="td_divide_det">'+ifnull(hr[i][11],'.')+'</td>'+
+'    <td onclick="openletter(\''+hr[i][1]+'\');" class="td_divide_det" >'+ifnull(hr[i][10],'.')+'</td>'+
+'     <td onclick="openletter(\''+hr[i][1]+'\');" class="td_divide_det" >'+hr[i][3]+'</td>'+
+'     <td onclick="openletter(\''+hr[i][1]+'\');" class="td_divide_det" >'+hr[i][4]+'</td>'+
+'     <td onclick="openletter(\''+hr[i][1]+'\');" class="td_divide_det" >'+hr[i][5]+'</td>'+
+'     <td onclick="openletter(\''+hr[i][1]+'\');" class="td_divide_det" >'+hr[i][6]+'</td>'+
+'     <td onclick="openletter(\''+hr[i][1]+'\');" class="td_divide_det" >'+hr[i][7]+'</td>'+
+'     <td onclick="openletter(\''+hr[i][1]+'\');"class="td_divide_det_end" >'+hr[i][8]+'</td></tr>';
+str=str+_str;
+	    }
+str=
+'  <div>  '+
+'  <table CellPadding="0" CellSpacing="0" id="detail">'+
+'<tbody>'+
+'  <tr> '+
+'    <td rowspan=2 class="td_divide_title"> X</td>'+
+'    <td rowspan=2 class="td_divide_title">شماره نامه</td>'+
+'    <td rowspan=2 class="td_divide_title">موضوع نامه</td>'+
+'    <td rowspan=2 class="td_divide_title">آخرین هامش</td>'+
+'    <td colspan=3 class="td_divide_title" >تاریخ</td>'+
+'    <td colspan=3 class="td_divide_title_end">گردش</td>'+
+'</tr>'+
+'  <tr> '+
+'    <td class="td_divide_title" >صدور</td>'+
+'    <td class="td_divide_title">ارسال</td>'+
+'    <td class="td_divide_title" >مشاهده</td>'+
+'    <td class="td_divide_title">ثبت</td>'+
+'    <td class="td_divide_title" >ارجاع کننده</td>'+
+'    <td class="td_divide_title">جاری</td>'+
+'</tr>'+
+
+
+'  '+str+' </tr></tbody></table></div>';
+      document.getElementById('___example').innerHTML=str;
+	}
+    }
+    xmlhttp.open("GET", "py_inbox_manager.py?ddf="+readInbox(), true);
+    xmlhttp.send();
+    
+    
+
+}
+  
+  function ifnull(param,value) {
+    if ( param =="") {
+      return value;
+    } else return param
+  }
+  
+$(document).ready(function() {
+    fetch_tbl();
+} );
+
+
+function openletter(id){
+  var url=def_url+"2&id="+id;
+  window.location.href=url;
+}
+
+
+
+
+
+function newlettercomes() {
+  if (isnew) {
+        fetch_tbl();
+	isnew=false;
+  }
+      setTimeout("newlettercomes()",4000);
+}
+
+newlettercomes();
+
+
+
+function erja_to_baygani() {
+  if (confirm("آیا شما میخواهید نامه انتخابی را به بایگانی انتقال دهید")) {
+      $.post("py_erja_manager.py", "l_id=" + qs["id"] + "&dddta=zzz43160)))", function(data) {
+   window.location.href = "py_main.py?mid=4";
+  });
+  }
+}
+
+
+
+
+function getSelectedtoArchive() {
+  var aa= document.getElementsByTagName("input");
+  var slctd="";
+  for (var i =0; i < aa.length; i++)
+  {
+   if (aa[i].type == 'checkbox' & aa[i].id.split("___")[1] != undefined & aa[i].checked == true)	
+   {
+       if (slctd!="") {
+	slctd=slctd+"___"+aa[i].id.split("___")[1]
+	} else {
+	slctd=aa[i].id.split("___")[1];
+       }
+   }
+  }
+  return slctd;
+}
+
+</script>
+
+
+  </body>
+  
+  
+</html>

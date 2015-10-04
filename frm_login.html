@@ -1,0 +1,202 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+    <title>صنایع فولاد فرخشهر</title>
+</head>
+<script type="text/javascript" src="scripts/jquery.min.js"></script>
+<body dir="rtl" style="font-family: tahoma; font-size: 12px; background-color: #FFFFFF; padding: 0px 0px 0px 0px; margin: 0px 0px 0px 0px;">
+    <div style="width: 100%; height: 185px; background-color: #A488FF; text-align: center; ">
+        
+        <img src="images/logo_title.jpg" style="margin-left: auto; margin-right: auto;"  />
+        
+    </div>
+    <div style="background-image: url(images/logo_topBackg.jpg); background-repeat: repeat-x; background-position: top; ">
+        <div style="width:437px; height: 45px; margin-left: auto; margin-right: auto">
+            <br>
+                <br>
+            <img src="images/logo_topBackg2.jpg"</div>
+        
+        <div>
+            
+            <style type="text/css">
+            .inputs{
+                border-width: 1px;
+                border-style: solid;
+                border-color: black;
+                width: 130px;
+                height: 15px;
+                font-family: tahoma;
+                font-size: 12px;
+                
+            }
+            </style>
+            <div >
+همکاران گرامی از شنبه بیست و دوم فروردین 1393 امکان هر گونه ثبت اطلاعات در نرم افزار قدیمی اتوماسیون اداری غیر فعال گردیده است
+لذا خواهشمندم از نرم افزار جدید استفاده نمایید
+
+</div>
+            
+            <table style="margin-left: auto; margin-right: auto">
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td>نام کاربری</td>
+                        <td><input type="text" id="uname" name="uname" class="inputs"/></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>رمز عبور</td>
+                        <td><input type="password" id="pass" name="pass" class="inputs"/></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan=4 style="text-align: center">
+                            <br>
+                                
+                            <a href="#" onclick="senduserdata()">ورود به سیستم</a>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td  colspan=4 style="text-align: center">
+                            
+                            <br>
+                                <br>
+                                    <br>
+<br>
+    <br>
+        همکاران گرامی
+        <br>
+        
+
+        
+                                        
+                                        
+                        </td>
+                      
+                      
+                    </tr>
+                    
+                
+                
+                <tr>
+                    <td  colspan=4 >
+                        <br>
+                            <br>
+                        <center>
+                        <a href="#" onclick="show();">تغییر رمز عبور</a>
+                        </center>
+                        <div id="div_change_pass" style="visibility: hidden;">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>نام کاربری</td>
+                                    <td><input type="text" id="new_uname" name="new_uname" class="inputs"/></td>
+                                </tr>
+                                <tr>
+                                    <td>رمز فعلی</td>
+                                    <td><input type="password" id="old_pass" name="old_pass" class="inputs"/></td>
+                                </tr>
+                                <tr>
+                                    <td>رمز جدید</td>
+                                    <td><input type="password" id="new_pass" name="new_pass" class="inputs"/></td>
+                                </tr>
+                                <tr>
+                                    <td>تکرار</td>
+                                    <td><input type="password" id="conf_pass" name="conf_pass" class="inputs"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan=2>
+                                        <center>
+                                      <a href="#" onclick="changepass();">تائید و ارسال</a>  
+                                        </center>
+                                        <script type="application/x-javascript">
+                                          function show()
+                                          {
+                                            document.getElementById('div_change_pass').style.visibility = 'visible';
+                                          }
+                                          
+                                          
+                                          function changepass() {
+                                            var _uname = document.getElementById('new_uname').value;
+                                            var _pass = document.getElementById('old_pass').value;
+                                            var _newpass = document.getElementById('new_pass').value;
+                                            var _confpass = document.getElementById('conf_pass').value;
+                                            str=_uname+'szzas'+_pass+'szzas'+_newpass+'szzas'+_confpass;
+                                            
+                                            $.post("py_change_pass.py","xsa="+str,function(data)
+                                                   {
+                                                        document.getElementById('div_change_pass').innerHTML="درخواست تغییر رمز شما ثبت شد"
+                                                   }
+                                                   );
+                                         
+                                          }
+                                        
+                                        
+                                        </script>
+                                    </td>
+                                </tr>
+                                
+                            </tbody>
+                            
+                            
+                        </table>
+                        </div>
+                    </td>
+                    
+                </tr>
+                
+                
+                </tbody>
+                
+                
+            </table>
+            
+            
+        </div>
+        
+        
+    </div>
+    <!-- Insert your content here -->
+    
+    
+    
+    <script type="application/x-javascript">
+    
+    
+    function senduserdata()
+{
+        var texts = document.getElementById("uname").value+
+        "|"+document.getElementById("pass").value+"|4";
+
+    if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+
+    } else {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var str = xmlhttp.responseText;
+	    
+            document.body.innerHTML = str;
+            
+	}
+    }
+
+//xmlhttp.open("GET", "py_main.py?texts="+texts, true);
+//xmlhttp.send();
+//window.open("py_main.py?texts="+texts);
+window.location.href="py_login.py?uname="+
+document.getElementById("uname").value+
+"&pass="+document.getElementById("pass").value;
+    
+}
+    
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd"
+    >
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<html lang="en">
+<head>
+    <title><!-- Insert your title here --></title>
+</head>
+ <link rel="stylesheet" href="css/main_style.css" type="text/css" />
+ <script src="scripts/jquery.min.js" type="text/javascript"></script>
+ <script src="scripts/main_script.js" type="text/javascript"></script>
+ <script src="scripts/jquery.maskedinput-1.2.2.js" type="text/javascript"></script>
+
+<body dir="rtl">
+    
+<div id="div_channel_lists" class="div_channel_lists">
+
+    <img src="images/imageloading.gif"/>
+    لطفا صبر کنید ....
+</div>
+
+
+
+<div id="modal-background"></div>
+<div id="modal-content">
+       
+    <button id="modal-close">Close Modal Window</button>
+</div>
+
+
+<script type="application/x-javascript">
+/*
+
+$.post("../irib_3.py","get_channel_list=aaThga",function(data)
+       {
+            document.getElementById("div_channel_lists").innerHTML = data;
+       });
+
+
+*/
+
+$.post("./irib_3.py","get_main_grid=aaThga",function(data)
+       {
+            document.getElementById("div_channel_lists").innerHTML = data;
+       });
+
+  var page_y = 0;     
+       
+function get_edit_content(id) {
+    page_y = $(document).scrollTop();
+    
+    
+    $.post("./irib_3.py","get_edit_content="+id.toString(),function(data){
+        
+        document.getElementById("modal-content").innerHTML = data;
+                      $("#modal-content, #modal-background").toggleClass("active");
+                     $("#modal-launcher, #modal-background, #modal-close").click(function() {
+                           
+                            $("#modal-content, #modal-background").removeClass( "active" ).addClass( "pass" );
+                     });
+                     $('html, body').scrollTop( page_y );
+             
+       
+        });
+}
+
+
+function post_edited_data() {
+    //alert(document.getElementById('txt_mehvar').value);
+    dd = document.getElementsByTagName('select');
+    var str = ""
+    for (var i=0;i<dd.length;i++) {
+        sdf = dd[i].id;
+        var br = [];
+        br = sdf.split("_");
+        
+        if (br.length == 3) {
+            str = str+"^"+br[2]+">"+document.getElementById(sdf).value;
+        }
+        
+    }
+    
+    var st = document.getElementById("txt_mehvar").value;
+    var stA = document.getElementById("mehvar_code").value;
+    var stt = document.getElementById("sel_ahdaf").value;
+     page_y = $(document).scrollTop();
+    dt = st+"yupp"+stt+"yupp"+str+"yupp"+stA
+    $.post("./irib_3.py","send_edit_data="+dt,function(data){
+        alert("با موفقیت تغییرات ثبت گردید");
+        $.post("./irib_3.py","ul_id="+stA,function(data){
+            document.getElementById("ul_"+stA).innerHTML = data;
+            $('html, body').scrollTop( page_y );
+            
+            
+                                $("#modal-content, #modal-background").toggleClass("active");
+                     $("#modal-launcher, #modal-background, #modal-close").click(function() {
+                           
+                            $("#modal-content, #modal-background").removeClass( "active" ).addClass( "pass" );
+                     });
+            
+            
+        });
+        });
+  
+  
+}
+
+</script>
+</body>
+</html>

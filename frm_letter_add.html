@@ -1,0 +1,523 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script src="scripts/jquery.maskedinput-1.2.2.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="main_style.css" />
+    
+    <script src="scripts/jquery.inputhints.min.js" type="text/javascript"></script>
+    <script src="scripts/main_script.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="scripts/jquery-ui.css" type="text/css" />
+    <script src="scripts/jquery-ui.js" type="text/javascript"></script>
+    <script src="scripts/jalali.js" type="text/javascript"></script>
+    <style type="text/css">
+	input.hint { color: #888; }
+    </style>
+
+    <title>Untitled Document</title>
+</head>
+<body dir="rtl">
+    
+
+    
+    <div>
+	<div id="div_new_letter">
+	    ثبت نامه جدید
+	    <div>
+		<table style="font-size: 12px;">
+		    <tr>
+			<td width="100px"><font color="#408080" >مرحله اول  :<br />
+			انتخاب نوع نامه </font></td>
+
+			<td colspan="8">
+			    <table id="selector">
+				<tr>
+				    <td valign="top" colspan="4">
+					<a href="javascript:location.reload(true);">پاک سازی فرم</a></td>
+				</tr>
+
+				<tr>
+				    <td><br></td>
+
+				    <td><input id="obj_Radio1" name="R1" type="radio" value="V1" onclick="selected_letter_type(1);" />نامه وارده</td>
+
+				    <td><input id="obj_Radio2" name="R1" type="radio" value="V1" onclick="selected_letter_type(2);" />نامه صادره</td>
+
+				    <td><input id="obj_Radio3" checked="checked" name="R1" type="radio" value="V1" onclick="selected_letter_type(3);" />نامه داخلی</td>
+				</tr>
+
+				<tr>
+				    <td colspan="4" valign="top">
+					<div id="div_alarm"></div>
+				    </td>
+				</tr>
+			    </table><img class="img_devider" src="images/devider_bar.gif" />
+			</td>
+		    </tr>
+
+		    <tr>
+			<td><font color="#408080">مرحله دوم : ورود اطلاعات مربوطه</font><font color="#408080"><br></font></td>
+
+			<td colspan="8">
+			    <div id="div_varede">
+				<table>
+				    <tr style="font-size: 12px;">
+					<td valign="top"><br /></td>
+
+<td valign="top">شزکت صادر کننده <font color="#FF0000">*</font><br /></td>
+
+<td valign="top"><br /></td>
+
+<td valign="top">نام مقام یا شخص صادر کننده <font color="#FF0000">*</font></td>
+
+					<td valign="top"><br /></td>
+
+					<td valign="top">تاریخ صدور <font color="#FF0000">*</font></td>
+
+					<td valign="top"><br /></td>
+
+					<td valign="top">نحوه ارسال<br></td>
+				    </tr>
+
+				    <tr style="font-size: 12px;">
+					<td><br /></td>
+
+					<td><input id="obj_Text1" type="text" title="&#217;&#8224;&#216;&#167;&#217;&#8230; &#217;&#216;&#177;&#216;&#179;&#216;&#170;&#217;&#8224;&#216;&#175;" name="obj_Text1" onblur="check_var_existant('1','obj_Text1');" /></td>
+
+					<td><br /></td>
+
+					<td><input id="obj_Text2" type="text" title="&#217;&#8224;&#216;&#167;&#217;&#8230; &#217;&#216;&#177;&#216;&#179;&#216;&#170;&#217;&#8224;&#216;&#175;" name="obj_Text2" onblur="check_var_existant('2','obj_Text2');" /></td>
+
+					<td><br /></td>
+
+					<td dir="ltr"><input id="obj_Text3" type="text" special="nn_da_100" maxlength="100" /></td>
+
+					<td><br /></td>
+
+					<td><input id="obj_Text4" type="text" special="nn_vc_20" onblur="check_var_existant('6','obj_Text4');" /></td>
+				    </tr>
+
+				    <tr style="font-size: 12px;">
+					<td><br /></td>
+
+					<td>شماره نامه <font color="#FF0000">*</font></td>
+
+					<td><br /></td>
+
+					<td><br /></td>
+
+					<td>&nbsp;</td>
+				    </tr>
+
+				    <tr style="font-size: 12px;">
+					<td><br /></td>
+
+					<td><input id="obj_Text13" type="text" special="nn_va_20" /></td>
+
+					<td>&nbsp;</td>
+
+					<td>&nbsp;</td>
+
+					<td>&nbsp;</td>
+				    </tr>
+				</table>
+			    </div>
+			    <div id="div_sadereh">
+				<table>
+				    <tr>
+					<td valign="top" style="font-size: 12px;">شرکت دریافت کننده <font color="#FF0000">*</font></td>
+
+					<td valign="top" style="font-size: 12px;">سمت یا شخص دریافت کننده <font color="#FF0000">*</font></td>
+
+					<td valign="top" style="font-size: 12px;">تاریخ صدور <font color="#FF0000">*</font></td>
+
+					<td valign="top" style="font-size: 12px;">نحوه ارسال <font color="#FF0000">*</font></td>
+
+					<td valign="top" style="font-size: 12px;"><br /></td>
+				    </tr>
+
+				    <tr style="font-size: 12px;">
+					<td><input type="text" id="obj_Text5" special="nn_vc_100" onblur="check_var_existant('3','obj_Text5');" /></td>
+
+					<td><input type="text" id="obj_Text6" special="nn_vc_100" onblur="check_var_existant('4','obj_Text6');" /></td>
+
+					<td><input type="text" id="obj_Text7" special="nn_dt_0" /></td>
+
+					<td><input type="text" id="obj_Text8" special="nn_vc_20" onblur="check_var_existant('6','obj_Text8');" /></td>
+
+					<td>&nbsp;</td>
+				    </tr>
+				</table>
+			    </div>
+			    <div id="div_dakheli">
+				<table>
+				    <tr style="font-size: 12px;">
+					<td valign="top">دریافت کننده <font color="#FF0000">*</font></td>
+
+					<td valign="top">تاریخ صدور <font color="#FF0000">*</font></td>
+
+					<td valign="top">نحوه ارسال<font color="#FF0000">*</font></td>
+
+					<td valign="top"><br /></td>
+
+					<td valign="top"><br /></td>
+				    </tr>
+
+				    <tr style="font-size: 12px;">
+					<td><input type="text" id="obj_Text9" special="nn_vc_100" onblur="check_var_existant('5','obj_Text9');" /></td>
+
+					<td><input type="text" id="obj_Text11" special="nn_dt_100" /></td>
+
+					<td>&nbsp;<input type="text" id="obj_Text12" onblur="check_var_existant('6','obj_Text12');" /></td>
+
+					<td>&nbsp;</td>
+
+					<td>&nbsp;</td>
+				    </tr>
+				</table>
+			    </div>
+			</td>
+
+		    <tr>
+			<td valign="top"><font color="#408080">مرحله سوم : ورود اطلاعات ثابت</font><font color="#408080"><br></font></td>
+
+			<td valign="top">
+			    <table>
+				<tr style="font-size: 12px;">
+				    <td valign="top"><br /></td>
+
+				    <td valign="top">تاریخ ارسال <font color="#FF0000">*</font></td>
+
+				    <td valign="top"><br /></td>
+
+				    <td valign="top">تعداد پیوست <font color="#FF0000">*</font></td>
+
+				    <td valign="top"><br /></td>
+
+				    <td valign="top">شماره نامه مرتبط <font color="#FF0000">*</font></td>
+				</tr>
+
+				<tr>
+				    <td><br /></td>
+
+	  <td><input type="text" id="obj_Text14" special="nn_da_0" />
+	  
+	  
+	  </td>
+
+				    <td><br /></td>
+
+				    <td><input type="text" id="obj_Text17" special="nn_num_0" value="00" /></td>
+
+				    <td><br /></td>
+
+				    <td><input type="text" id="obj_Text18" special="nn_vc_20" value="0" /></td>
+				</tr>
+			    </table>
+			</td>
+
+			<td valign="top"><br /></td>
+
+			<td valign="top"><br /></td>
+
+			<td valign="top"><br /></td>
+
+			<td valign="top"><br /></td>
+
+			<td valign="top"><br /></td>
+
+			<td valign="top"><br /></td>
+
+			<td valign="top"><br /></td>
+		    </tr>
+
+		    <tr>
+			<td valign="top"><font color="#408080">مرحله چهارم : ورود متن اصلی یا خلاصه نامه</font><font color="#408080"><br> 
+			<br></font></td>
+
+			<td valign="top">
+			    <div>موضوع نامه : <input type="text" id="obj_Text19" special="nn_vc_20" value="" /></div>
+			    <br>
+
+			    &nbsp; <a href="javascript:postform()">ثبت نامه</a><br />
+			</td>
+
+			<td valign="top"><br /></td>
+
+			<td valign="top"><br /></td>
+
+			<td valign="top"><br /></td>
+
+			<td valign="top"><br /></td>
+
+			<td valign="top"><br /></td>
+
+			<td valign="top"><br /></td>
+
+			<td valign="top"><br /></td>
+		    </tr>
+		</table>
+		
+		<div>
+		    * توجه داشته باشید در متن نامه سلام علیکم یا موضوع نامه و همچنین نام شخص تنظیم کننده نامه بصورت اتوماتیک درج میشود لذا خواهشمند است فقط متن نامه را وارد نمایید
+		    
+		</div>
+<script type="text/javascript">
+    
+    <!--
+// Automatically calculates the editor base path based on the _samples directory.
+// This is usefull only for these samples. A real application should use something like this:
+// oFCKeditor.BasePath = '/fckeditor/' ;	// '/fckeditor/' is the default value.
+var sBasePath = 'fckeditor/' ;
+
+var oFCKeditor = new FCKeditor( 'FCKeditor1' ) ;
+oFCKeditor.BasePath	= sBasePath ;
+oFCKeditor.Height	= 300 ;
+
+
+
+oFCKeditor.Create() ;
+//-->
+
+
+    
+    
+</script>
+
+
+	    </div>
+	</div>
+    </div>
+
+
+<script type="text/javascript">
+  //  get_drp_hint('obj_Text1');
+
+
+  
+  
+  function getObjectValueArray()
+  {
+    var inst = FCKeditorAPI.GetInstance("FCKeditor1");
+	  var ar = 
+	  gl("obj_Radio1")[0]+":"+gl("obj_Radio1")[1]+","+
+	  gl("obj_Radio2")[0]+":"+gl("obj_Radio2")[1]+","+
+	  gl("obj_Radio3")[0]+":"+gl("obj_Radio3")[1]+","+
+	  gl("obj_Text1")[0]+":"+gl("obj_Text1")[1]+","+
+	  gl("obj_Text2")[0]+":"+gl("obj_Text2")[1]+","+
+	  gl("obj_Text3")[0]+":"+convert_shamsi_to_milady(gl("obj_Text3")[1])+","+
+	  gl("obj_Text4")[0]+":"+gl("obj_Text4")[1]+","+
+	  gl("obj_Text13")[0]+":"+gl("obj_Text13")[1]+","+
+	  gl("obj_Text5")[0]+":"+gl("obj_Text5")[1]+","+
+	  gl("obj_Text6")[0]+":"+gl("obj_Text6")[1]+","+
+	  gl("obj_Text7")[0]+":"+convert_shamsi_to_milady(gl("obj_Text7")[1])+","+
+	  gl("obj_Text8")[0]+":"+gl("obj_Text8")[1]+","+
+	  gl("obj_Text9")[0]+":"+gl("obj_Text9")[1]+","+
+	  gl("obj_Text11")[0]+":"+convert_shamsi_to_milady(gl("obj_Text11")[1])+","+
+	  gl("obj_Text12")[0]+":"+gl("obj_Text12")[1]+","+
+	  gl("obj_Text14")[0]+":"+convert_shamsi_to_milady(gl("obj_Text14")[1])+","+
+	  gl("obj_Text17")[0]+":"+gl("obj_Text17")[1]+","+
+	  gl("obj_Text18")[0]+":"+gl("obj_Text18")[1]+","+
+	  
+	  
+	  "editable:"+escape(inst.GetHTML())+","+
+	  gl("obj_Text19")[0]+":"+gl("obj_Text19")[1]
+	  
+	  ;
+	  return ar;
+  }
+  
+  
+  
+    function postform() {
+    if (checkvalidation()){
+	if (qs["id"]==undefined) {
+	    $.post("py_new_letter_post.py",{frmd:getObjectValueArray()},function(data) {
+             window.location.href=def_url+"4";
+});
+        
+	} else
+	{
+	    $.post("py_new_letter_post.py?id="+qs["id"],{frmd:getObjectValueArray()},function (data)
+		   {
+		    alert("تغییرات مورد نظر اعمال گردید");
+		    window.location.href=def_url+"4";
+		    
+		    });
+	}
+        
+        }
+
+    }
+    
+
+  
+  
+ 
+/* attach a submit handler to the form */
+// this is the id of the submit button
+
+function checkvalidation()
+{
+if (document.getElementById("obj_Radio1").checked)
+{var al = false;
+al =    check_null("obj_Text1","لطفا شرکت ارسال کننده را پر کنید")&&
+		check_null("obj_Text2","لطفا شخص ارسال کننده را مشخص نمایید")&&
+		check_null("obj_Text3","لطفا تاریخ دریافت را مشخص نمایید")&&
+		check_null("obj_Text4","لطفا نوع ارسال را مشخص نمایید")&&
+		check_null("obj_Text13","لطفا شماره نامه را وارد نمایید")&&
+		check_null("obj_Text14","لطفا تاریخ نامه را وارد نمایید")&&
+		check_null("obj_Text17","لطفا تعداد صفحات پیوستی را وارد نمایید")&&
+		check_null("obj_Text18","لطفا شماره نامه مرتبط را وارد نمایید یا در صورت عدم وجود عدد صفر را وارد کنید");
+}
+if (document.getElementById("obj_Radio2").checked)
+{var al = false;
+al =    check_null("obj_Text5","لطفا شرکت دریافت کننده را پر کنید")&&
+		check_null("obj_Text6","لطفا شخص دریافت کننده را مشخص نمایید")&&
+		check_null("obj_Text7","لطفا تاریخ ارسال را مشخص نمایید")&&
+		check_null("obj_Text8","لطفا نوع ارسال را مشخص نمایید")&&
+		check_null("obj_Text14","لطفا تاریخ نامه را وارد نمایید")&&
+		check_null("obj_Text17","لطفا تعداد صفحات پیوستی را وارد نمایید")&&
+		check_null("obj_Text18","لطفا شماره نامه مرتبط را وارد نمایید یا در صورت عدم وجود عدد صفر را وارد کنید");
+}
+
+
+if (document.getElementById("obj_Radio3").checked)
+{var al = false;
+al =    check_null("obj_Text9","لطفا نام دریافت کننده را پر کنید")&&
+		check_null("obj_Text11","لطفا تاریخ ارسال را مشخص نمایید")&&
+		check_null("obj_Text12","لطفا نوع ارسال را مشخص نمایید")&&
+		check_null("obj_Text14","لطفا تاریخ نامه را مشخص نمایید")&&
+		check_null("obj_Text17","لطفا تعداد صفحات پیوستی را وارد نمایید")&&
+		check_null("obj_Text18","لطفا شماره نامه های مرتبط را وارد نمایید");
+}return al;}
+
+
+$(function($) 
+{$("#obj_Text3").mask("1399/99/99");$("#obj_Text7").mask("1399/99/99");$("#obj_Text11").mask("1399/99/99");$("#obj_Text14").mask("1399/99/99");$("#obj_Text17").mask("99"); $('#div_varede').hide();  $('#div_sadereh').hide();
+        set_Autocomplete_fill("#obj_Text1,#obj_Text2,#obj_Text5,#obj_Text6,#obj_Text9,#obj_Text4,#obj_Text8,#obj_Text12", "py_get_drop_down_items.py?tp=1,2,3,4,5,6,6,6");
+        $("input").each(function(){  var obj = $(this);
+		if  ($(obj).attr("special") != undefined)
+			{ var prop = $(obj).attr("special");
+			  var chh = prop.split("_");
+			} });
+
+// edit mode
+var id_of_letter = qs["id"];
+//alert(id_of_letter);
+if (id_of_letter != undefined)
+  {
+      if (window.XMLHttpRequest) {xmlhttp = new XMLHttpRequest();
+    } else
+    {     xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");   }
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var str = xmlhttp.responseText;
+	    var date_sodoor=(
+		  JalaliDate.gregorianToJalali(
+		  String(str.split("|")[6]).split(" ")[0].split("-")[0],
+		  String(str.split("|")[6]).split(" ")[0].split("-")[1],
+		  String(str.split("|")[6]).split(" ")[0].split("-")[2])
+		  );
+	    //alert(  String(str.split("|")[9]).split(" ")[0] );
+	    var date_daryaft=(
+		  JalaliDate.gregorianToJalali(
+		  String(str.split("|")[9]).split(" ")[0].split("-")[0],
+		  String(str.split("|")[9]).split(" ")[0].split("-")[1],
+		  String(str.split("|")[9]).split(" ")[0].split("-")[2])
+		  );
+	    
+	    var sw=str.split("|");
+	    
+	    date_daryaft[0]=String(date_daryaft[0]);
+	    date_daryaft[1]=String(date_daryaft[1]);
+	    date_daryaft[2]=String(date_daryaft[2]);
+	    
+	    date_sodoor[0]=String(date_sodoor[0]);
+	    date_sodoor[1]=String(date_sodoor[1]);
+	    date_sodoor[2]=String(date_sodoor[2]);
+	    
+	    if (date_sodoor[1].length ==1 ) {date_sodoor[1]="0"+date_sodoor[1]; }
+	    if (date_sodoor[2].length ==1 ) {date_sodoor[2]="0"+date_sodoor[2]; }
+	    if (date_daryaft[1].length ==1 ) {date_daryaft[1]="0"+date_daryaft[1]; }
+	    if (date_daryaft[2].length ==1 ) {date_daryaft[2]="0"+date_daryaft[2]; }
+	    
+	    
+	    
+	    if (String(sw[3])=="1") {
+		selected_letter_type(1);
+		document.getElementById("obj_Radio1").checked=true;
+	    document.getElementById("obj_Text1").value=sw[1];
+	    document.getElementById("obj_Text2").value=sw[2];
+	    document.getElementById("obj_Text3").value=
+	    date_sodoor[0]+"/"+date_sodoor[1]+"/"+date_sodoor[2];
+	    document.getElementById("obj_Text4").value=sw[5];
+	    document.getElementById("obj_Text13").value=sw[8];
+	    
+	    }
+	    
+	    if (String(sw[3])=="2") {
+		selected_letter_type(2);
+		document.getElementById("obj_Radio2").checked=true;
+	    document.getElementById("obj_Text5").value=sw[1];
+	    document.getElementById("obj_Text6").value=sw[2];
+	    document.getElementById("obj_Text7").value=
+	    date_sodoor[0]+"/"+date_sodoor[1]+"/"+date_sodoor[2];
+	    document.getElementById("obj_Text8").value=sw[5];
+	    }
+
+
+	    if (String(sw[3])=="3") {
+	    selected_letter_type(3);
+	    document.getElementById("obj_Radio3").checked=true;
+	    document.getElementById("obj_Text9").value=sw[1];
+	    document.getElementById("obj_Text11").value=
+	    date_sodoor[0]+"/"+date_sodoor[1]+"/"+date_sodoor[2];
+	    document.getElementById("obj_Text12").value=sw[5];
+	    }
+	    
+	    
+	    document.getElementById("obj_Text14").value=
+	    date_daryaft[0]+"/"+date_daryaft[1]+"/"+date_daryaft[2];
+	    document.getElementById("obj_Text17").value=sw[7];
+	    document.getElementById("obj_Text18").value=sw[4];
+	    document.getElementById("obj_Text19").value=sw[12];
+	    
+	    
+	    
+	    
+	    
+	    
+    //var __inst = FCKeditorAPI.GetInstance("FCKeditor1");
+	    //inst.Value=sw[10];
+//	__inst.SetHTML(sw[10]);
+//function fckOncmpl(instans) {
+
+		       document.getElementById("FCKeditor1").value=unescape(sw[10])
+
+
+//}
+	    
+
+	    
+	    
+	    
+	}  }
+
+xmlhttp.open("GET", "py_letter_read.py?id="+id_of_letter, true);
+xmlhttp.send();
+    
+}
+});
+
+
+</script>
+
+
+
+
+</body>
+
+
+
+</html>

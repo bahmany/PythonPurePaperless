@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd"
+    >
+<html lang="en">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+    <title></title>
+</head>
+    <script type="text/javascript" src="scripts/jquery.min.js"></script>
+<body dir="rtl" style="font-family: tahoma;">
+    
+    
+    
+    
+    <style type="text/css">
+    #div_userlist a{
+        border-color: blue;
+
+    border-style: solid;
+    border-width: 1px;
+    font-size: 11px;
+
+    font-variant: normal;
+    font-style: normal;
+    
+}
+    </style>
+    
+    
+    
+    <script type="application/x-javascript">
+    
+    $.post("py_users_related_groups_manager.py","getall=21ed",function(data)
+           {
+            var r=[];
+            r=data.split("dressa");
+            for (var i=0;i<r.length;i++) {
+                $("#div_userlist").append("<A><input name='checkboxes' id='a_"+r[i].split("sxww")[1]+"' type='checkbox' /><span href='#'>   "+r[i].split("sxww")[0]+"-"+r[i].split("sxww")[2]+"  </span> </A>");
+            }
+            
+           });
+    
+    function send_data() {
+            var dd=[];
+            var cc=[];
+            var chkitems="";
+            var pkname="";
+            dd = document.getElementsByName("checkboxes");
+            for (var i=0; i<dd.length; i++) {
+                if (dd[i].checked) {
+                    cc.push(dd[i].id.split("_")[1]);
+                }
+            }
+            
+            if (cc.length !=0) {
+                pkname=document.getElementById("txt_group_title").value;
+                for (var bv=0;bv<cc.length;bv++) {
+                    if (bv==0) {
+                        chkitems=cc[bv];
+                    } else
+                    {
+                        chkitems=chkitems+"gfhjdg"+cc[bv];
+                    }
+                    }
+                    $.post("py_users_related_groups_manager.py","name="+pkname+"&"+"ar="+chkitems,function(data){
+                        alert(data);
+                    });
+                }
+                
+                
+            }
+            
+    
+    
+    </script>
+    
+<div id="div_userlist">
+    نام گروه : <input type="text" id="txt_group_title"/>
+    <a href="#" onclick="send_data()">تائید</a>
+    <br>
+    
+</div>
+
+
+
+</body>
+</html>

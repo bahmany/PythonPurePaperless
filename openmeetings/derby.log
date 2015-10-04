@@ -1,0 +1,17 @@
+----------------------------------------------------------------
+Sun Sep 08 14:23:00 IRDT 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.2.2 - (1181258): instance a816c00e-0140-fcfd-16f4-000003f66710 
+on database directory C:\xampp\htdocs\openmeetings\openmeetings  with class loader WebappClassLoader
+  context: /openmeetings
+  delegate: false
+  repositories:
+    /WEB-INF/classes/
+----------> Parent Classloader:
+java.net.URLClassLoader@6d1cf4e5
+ 
+Loaded from file:/C:/xampp/htdocs/openmeetings/webapps/openmeetings/WEB-INF/lib/derby-jar-10.8.2.2.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.7.0-b147
+user.dir=C:\xampp\htdocs\openmeetings
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

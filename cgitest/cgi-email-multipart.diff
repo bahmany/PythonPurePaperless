@@ -1,0 +1,35 @@
+*** cgi.py	08 jan 2005 14:56:33 +0100	1.83
+--- cgi.py	04 feb 2005 11:13:51 +0100	
+***************
+*** 650,661 ****
+          klass = self.FieldStorageClass or self.__class__
+          part = klass(self.fp, {}, ib,
+                       environ, keep_blank_values, strict_parsing)
+          # Throw first part away
+          while not part.done:
+!             headers = _header_parser.parse(self.fp)
+!             part = klass(self.fp, headers, ib,
+                           environ, keep_blank_values, strict_parsing)
+              self.list.append(part)
+          self.skip_lines()
+  
+      def read_single(self):
+--- 650,665 ----
+          klass = self.FieldStorageClass or self.__class__
+          part = klass(self.fp, {}, ib,
+                       environ, keep_blank_values, strict_parsing)
++         tail = self.fp.read()
+          # Throw first part away
+          while not part.done:
+!             message = _header_parser.parsestr(tail)
+!             part = klass(StringIO(message.get_payload()), message, ib,
+                           environ, keep_blank_values, strict_parsing)
+              self.list.append(part)
++             # This relies on FieldStorage reading every part until it's
++             # boundary.
++             tail = part.fp.read()
+          self.skip_lines()
+  
+      def read_single(self):
+
+ 	  	 

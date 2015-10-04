@@ -1,0 +1,826 @@
+/*
+SQLyog Ultimate v11.11 (64 bit)
+MySQL - 5.5.27 : Database - sms
+*********************************************************************
+*/
+
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`sms` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+USE `sms`;
+
+/*Table structure for table `tbl_form_items` */
+
+DROP TABLE IF EXISTS `tbl_form_items`;
+
+CREATE TABLE `tbl_form_items` (
+  `fi_id` int(11) NOT NULL AUTO_INCREMENT,
+  `fi_name` varchar(300) NOT NULL,
+  `fi_object_type` smallint(6) NOT NULL COMMENT '1=text box string   2=textbox int   3=checkbox  4=radio   5=select 6=datetime',
+  `fi_if_radio_group_name` varchar(300) DEFAULT NULL,
+  `fi_if_mask_maskstring` varchar(300) DEFAULT NULL,
+  `fi_if_3_4_5_link_value` int(11) DEFAULT NULL COMMENT 'اتصال به جدول ولیوها',
+  `fi_not_null` tinyint(1) DEFAULT '1',
+  `fi_check_value_between` tinyint(1) DEFAULT '0',
+  `fi_check_value_from_to` varchar(300) DEFAULT NULL COMMENT 'from:::to',
+  `fi_if_4_link_tbl_name` varchar(400) DEFAULT NULL COMMENT 'tblname:::displayfieldname:::valuefieldname:::whereclause',
+  `fi_link_to_form_name` int(11) NOT NULL,
+  `fi_order` int(11) NOT NULL,
+  `fi_default_value` varchar(300) DEFAULT NULL,
+  `fi_length` int(11) DEFAULT NULL COMMENT 'سایز متن ورودی',
+  `fi_exp` varchar(600) DEFAULT NULL,
+  `fi_field_name` varchar(100) DEFAULT NULL COMMENT 'نام فیلد جدول مقصد',
+  PRIMARY KEY (`fi_id`),
+  KEY `frn_form` (`fi_link_to_form_name`),
+  CONSTRAINT `frn_form` FOREIGN KEY (`fi_link_to_form_name`) REFERENCES `tbl_forms` (`f_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_form_items` */
+
+insert  into `tbl_form_items`(`fi_id`,`fi_name`,`fi_object_type`,`fi_if_radio_group_name`,`fi_if_mask_maskstring`,`fi_if_3_4_5_link_value`,`fi_not_null`,`fi_check_value_between`,`fi_check_value_from_to`,`fi_if_4_link_tbl_name`,`fi_link_to_form_name`,`fi_order`,`fi_default_value`,`fi_length`,`fi_exp`,`fi_field_name`) values (1,'نام',1,NULL,NULL,NULL,1,0,NULL,NULL,1,1,NULL,NULL,NULL,'soccc_name'),(2,'نام خانوادگی',1,NULL,NULL,NULL,1,1,'1:::50',NULL,1,2,NULL,9,NULL,'soccc_family'),(3,'تاریخ تولد',6,'hhhhh',NULL,NULL,1,1,'1:::50',NULL,1,3,'checked',NULL,NULL,'soccc_birthdate'),(4,'کد ملی',2,NULL,'9999999999',NULL,1,1,'1:::50',NULL,1,4,'checked',10,NULL,'soccc_id_code'),(5,'کد پستی',2,NULL,'9999999999',NULL,1,1,'1:::50','tbl_sms_owner_companies_clients:::socc_name:::socc_id:::where socc_id=2',1,5,'checked',10,NULL,'soccc_post_code'),(6,'نوع شخص',1,NULL,'9',NULL,1,1,'1:::50','tbl_sms_owner_companies_clients:::socc_name:::socc_id:::where socc_id=2',1,6,'checked',NULL,'1= مدیر    2=پرسنل و آموزگاران     3= دانش آموزان','soccc_position');
+
+/*Table structure for table `tbl_forms` */
+
+DROP TABLE IF EXISTS `tbl_forms`;
+
+CREATE TABLE `tbl_forms` (
+  `f_id` int(11) NOT NULL AUTO_INCREMENT,
+  `f_name` varchar(300) NOT NULL,
+  `f_english_form_name` varchar(50) NOT NULL,
+  `f_table_name` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`f_id`),
+  UNIQUE KEY `sdf` (`f_english_form_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_forms` */
+
+insert  into `tbl_forms`(`f_id`,`f_name`,`f_english_form_name`,`f_table_name`) values (1,'فرم ثبت نام','clients_customer_reg_form','tbl_sms_owner_companies_clients_customers');
+
+/*Table structure for table `tbl_sms_billing` */
+
+DROP TABLE IF EXISTS `tbl_sms_billing`;
+
+CREATE TABLE `tbl_sms_billing` (
+  `sb_id` int(11) NOT NULL AUTO_INCREMENT,
+  `sb_name` varchar(300) NOT NULL,
+  `sb_fr_send_rials_per_sms` int(11) NOT NULL,
+  `sb_fr_recie_rials_per_sms` int(11) NOT NULL,
+  `sb_fr_deliver_rials_per_sms` int(11) NOT NULL,
+  `sb_fr_one_sms_chars_length` int(11) NOT NULL,
+  `sb_date` datetime NOT NULL,
+  `sb_en_send_rials_per_sms` int(11) NOT NULL,
+  `sb_en_recie_rials_per_sms` int(11) NOT NULL,
+  `sb_en_deliver_rials_per_sms` int(11) NOT NULL,
+  `sb_en_one_sms_chars_length` int(11) NOT NULL,
+  PRIMARY KEY (`sb_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_billing` */
+
+insert  into `tbl_sms_billing`(`sb_id`,`sb_name`,`sb_fr_send_rials_per_sms`,`sb_fr_recie_rials_per_sms`,`sb_fr_deliver_rials_per_sms`,`sb_fr_one_sms_chars_length`,`sb_date`,`sb_en_send_rials_per_sms`,`sb_en_recie_rials_per_sms`,`sb_en_deliver_rials_per_sms`,`sb_en_one_sms_chars_length`) values (2,'مدارس معمولی',90,5,1,64,'2013-07-31 14:27:00',210,10,4,250);
+
+/*Table structure for table `tbl_sms_billing_credits` */
+
+DROP TABLE IF EXISTS `tbl_sms_billing_credits`;
+
+CREATE TABLE `tbl_sms_billing_credits` (
+  `sbc_id` int(11) NOT NULL AUTO_INCREMENT,
+  `sbc_exp` text COMMENT 'توضیحات پرداخت',
+  `sbc_added_credit` int(11) NOT NULL COMMENT 'مبلغ پرداختی',
+  `sbc_companies_clients_link` int(11) DEFAULT NULL COMMENT 'ارتباط با مشتریان جهت اضافه سازی اعتبار',
+  `sbc_date` datetime NOT NULL COMMENT 'تاریخ واریز',
+  `sbc_added_user_id` int(11) NOT NULL COMMENT 'کاربر واریز کننده',
+  PRIMARY KEY (`sbc_id`),
+  KEY `FK_tbl_sms_billing_credits` (`sbc_companies_clients_link`),
+  KEY `FK_tbl_sms_billing_credits2` (`sbc_added_user_id`),
+  CONSTRAINT `FK_tbl_sms_billing_credits` FOREIGN KEY (`sbc_companies_clients_link`) REFERENCES `tbl_sms_owner_companies_clients` (`socc_id`),
+  CONSTRAINT `FK_tbl_sms_billing_credits2` FOREIGN KEY (`sbc_added_user_id`) REFERENCES `tbl_sms_secure_users` (`ssu_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_billing_credits` */
+
+insert  into `tbl_sms_billing_credits`(`sbc_id`,`sbc_exp`,`sbc_added_credit`,`sbc_companies_clients_link`,`sbc_date`,`sbc_added_user_id`) values (5,NULL,10000,2,'2013-01-01 00:00:00',1),(6,NULL,21,2,'2013-01-01 00:00:00',1);
+
+/*Table structure for table `tbl_sms_lines` */
+
+DROP TABLE IF EXISTS `tbl_sms_lines`;
+
+CREATE TABLE `tbl_sms_lines` (
+  `sl_int` int(11) NOT NULL AUTO_INCREMENT,
+  `sl_number` int(11) NOT NULL,
+  `sl_total_sent` int(11) NOT NULL,
+  `sl_total_rec` int(11) NOT NULL,
+  `sl_remain_credit` int(11) NOT NULL,
+  `sl_webservices_link` int(11) NOT NULL,
+  `sl_date` datetime NOT NULL,
+  `sl_expire_date` datetime NOT NULL,
+  PRIMARY KEY (`sl_int`,`sl_number`),
+  KEY `FK_tbl_sms_lines` (`sl_webservices_link`),
+  CONSTRAINT `FK_tbl_sms_lines` FOREIGN KEY (`sl_webservices_link`) REFERENCES `tbl_sms_webservices` (`sw_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_lines` */
+
+insert  into `tbl_sms_lines`(`sl_int`,`sl_number`,`sl_total_sent`,`sl_total_rec`,`sl_remain_credit`,`sl_webservices_link`,`sl_date`,`sl_expire_date`) values (1,2147483647,0,0,0,1,'2013-07-31 00:00:00','2014-07-31 00:00:00');
+
+/*Table structure for table `tbl_sms_owner` */
+
+DROP TABLE IF EXISTS `tbl_sms_owner`;
+
+CREATE TABLE `tbl_sms_owner` (
+  `so_id` int(11) NOT NULL AUTO_INCREMENT,
+  `so_name` varchar(300) NOT NULL,
+  `so_detail` text,
+  `so_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`so_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_owner` */
+
+insert  into `tbl_sms_owner`(`so_id`,`so_name`,`so_detail`,`so_date`) values (1,'شرکت تیکال',NULL,'2013-07-31 13:54:00');
+
+/*Table structure for table `tbl_sms_owner_companies` */
+
+DROP TABLE IF EXISTS `tbl_sms_owner_companies`;
+
+CREATE TABLE `tbl_sms_owner_companies` (
+  `soc_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'کد برای شرکت های تابعه صاحب سیستم',
+  `soc_link_to_tbl_owner` int(11) NOT NULL COMMENT 'کلید خارجی وصل به صاحت سیستم',
+  `soc_name` varchar(200) NOT NULL,
+  `soc_detail` text,
+  `soc_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`soc_id`),
+  KEY `FK_tbl_sms_owner_companies` (`soc_link_to_tbl_owner`),
+  CONSTRAINT `FK_tbl_sms_owner_companies` FOREIGN KEY (`soc_link_to_tbl_owner`) REFERENCES `tbl_sms_owner` (`so_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_owner_companies` */
+
+insert  into `tbl_sms_owner_companies`(`soc_id`,`soc_link_to_tbl_owner`,`soc_name`,`soc_detail`,`soc_date`) values (1,1,'پروژه اس ام اس مدارس تیکال',NULL,'2013-07-31 13:55:00');
+
+/*Table structure for table `tbl_sms_owner_companies_clients` */
+
+DROP TABLE IF EXISTS `tbl_sms_owner_companies_clients`;
+
+CREATE TABLE `tbl_sms_owner_companies_clients` (
+  `socc_id` int(11) NOT NULL AUTO_INCREMENT,
+  `socc_name` varchar(200) NOT NULL COMMENT 'نام شرکت استفاده کننده سرویس',
+  `socc_send_line_link` int(11) NOT NULL COMMENT 'لینک ارسال شماره ارسال',
+  `socc_reci_line_link` int(11) NOT NULL COMMENT 'لینک شماره دریافت',
+  `socc_hotline` varchar(13) DEFAULT NULL COMMENT 'شماره موبایل ویژه شرکت برای تبلیغات یا دسترسی پیام کوتاهی به صاحب',
+  `socc_tels` text,
+  `socc_address` text,
+  `socc_email` varchar(200) DEFAULT NULL,
+  `socc_managers_link` int(11) DEFAULT NULL COMMENT 'مدیر یا مدیران شرکتی که سرویس اس ام اس رو خریدن',
+  `socc_owner_companies_link` int(11) NOT NULL COMMENT 'ارتباط با جدول مادر',
+  `socc_remain_credit` bigint(20) DEFAULT NULL,
+  `socc_billing_link` int(11) NOT NULL,
+  `socc_date` datetime DEFAULT NULL COMMENT 'تاریخ ثبت',
+  `socc_date_of_value` datetime DEFAULT NULL COMMENT 'تاریخ اعتبار حساب',
+  `socc_active` smallint(6) DEFAULT '1' COMMENT 'فعال یا عدم فعال بودن',
+  `socc_type` smallint(6) NOT NULL DEFAULT '1' COMMENT '1=auto num 2=recieve only 3=send thatnks only 4=if commant thanks if num req ok ',
+  `socc_thanks_massage` varchar(400) DEFAULT 'با تشکر - پیام شما دریافت شد' COMMENT 'پیام تشکر در صورت دریافت دریافت غیر اتوماتیک',
+  `socc_send_auto_format` varchar(600) DEFAULT NULL COMMENT 'فرمت جواب ارسالی',
+  PRIMARY KEY (`socc_id`),
+  KEY `FK_tbl_sms_owner_companies_clients` (`socc_owner_companies_link`),
+  KEY `FK_tbl_sms_owner_companies_clients_2` (`socc_billing_link`),
+  KEY `FK_tbl_sms_owner_companies_clients_3` (`socc_reci_line_link`),
+  KEY `FK_tbl_sms_owner_companies_clients_4` (`socc_send_line_link`),
+  CONSTRAINT `FK_tbl_sms_owner_companies_clients` FOREIGN KEY (`socc_owner_companies_link`) REFERENCES `tbl_sms_owner_companies` (`soc_id`),
+  CONSTRAINT `FK_tbl_sms_owner_companies_clients_2` FOREIGN KEY (`socc_billing_link`) REFERENCES `tbl_sms_billing` (`sb_id`),
+  CONSTRAINT `FK_tbl_sms_owner_companies_clients_3` FOREIGN KEY (`socc_reci_line_link`) REFERENCES `tbl_sms_lines` (`sl_int`),
+  CONSTRAINT `FK_tbl_sms_owner_companies_clients_4` FOREIGN KEY (`socc_send_line_link`) REFERENCES `tbl_sms_lines` (`sl_int`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_owner_companies_clients` */
+
+insert  into `tbl_sms_owner_companies_clients`(`socc_id`,`socc_name`,`socc_send_line_link`,`socc_reci_line_link`,`socc_hotline`,`socc_tels`,`socc_address`,`socc_email`,`socc_managers_link`,`socc_owner_companies_link`,`socc_remain_credit`,`socc_billing_link`,`socc_date`,`socc_date_of_value`,`socc_active`,`socc_type`,`socc_thanks_massage`,`socc_send_auto_format`) values (2,'مدرسه شماره یک',1,1,'09125248398','78918798237	\r\n','یزرثیرثرثقر','bahmanymb@gmail.com',1,1,10021,2,'2013-06-01 00:00:00','2014-01-01 00:00:00',1,1,'با تشکر - پیام شما دریافت شد','در درس <1> نمره <2> آخرین نمره ی ثبتی میباشد');
+
+/*Table structure for table `tbl_sms_owner_companies_clients_customers` */
+
+DROP TABLE IF EXISTS `tbl_sms_owner_companies_clients_customers`;
+
+CREATE TABLE `tbl_sms_owner_companies_clients_customers` (
+  `soccc_id` int(11) NOT NULL AUTO_INCREMENT,
+  `soccc_name` varchar(200) DEFAULT NULL,
+  `soccc_family` varchar(200) DEFAULT NULL,
+  `soccc_birthdate` datetime DEFAULT NULL,
+  `soccc_id_code` varchar(10) DEFAULT NULL,
+  `soccc_post_code` varchar(12) DEFAULT NULL,
+  `soccc_companies_clients_link` int(11) DEFAULT NULL,
+  `soccc_date` datetime DEFAULT NULL,
+  `soccc_position` int(11) DEFAULT '1' COMMENT '1= simple reciever 2=personnels 3=managers',
+  PRIMARY KEY (`soccc_id`),
+  KEY `FK_tbl_sms_owner_companies_clients_customers` (`soccc_companies_clients_link`),
+  CONSTRAINT `FK_tbl_sms_owner_companies_clients_customers` FOREIGN KEY (`soccc_companies_clients_link`) REFERENCES `tbl_sms_owner_companies_clients` (`socc_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_owner_companies_clients_customers` */
+
+insert  into `tbl_sms_owner_companies_clients_customers`(`soccc_id`,`soccc_name`,`soccc_family`,`soccc_birthdate`,`soccc_id_code`,`soccc_post_code`,`soccc_companies_clients_link`,`soccc_date`,`soccc_position`) values (1,'محمد رضا','بهمنی',NULL,NULL,NULL,2,'2014-01-01 00:00:00',1),(2,'yguyg','hjguyg','1392-12-31 00:00:00','54664','464654',NULL,NULL,6),(3,'yguyg','hjguyg','2014-03-22 00:00:00','54664','464654',NULL,NULL,6),(4,'yguyg','hjguyg','2014-03-22 00:00:00','54664','464654',NULL,NULL,6),(5,'yguyg','hjguyg','2014-03-22 00:00:00','54664','464654',NULL,NULL,6),(6,'hjwgf wyeug','uyguyg','2013-03-21 00:00:00','11','11',NULL,NULL,6),(7,'hjwgf wyeug','uyguyg','2013-03-21 00:00:00','11','11',NULL,NULL,6),(8,'hjwgf wyeug','uyguyg','2013-03-21 00:00:00','11','11',NULL,NULL,6),(9,'hjwgf wyeug','uyguyg','2013-03-21 00:00:00','11','11',NULL,NULL,6),(10,'hjwgf wyeug','uyguyg','2013-03-21 00:00:00','11','11',NULL,NULL,6);
+
+/*Table structure for table `tbl_sms_owner_companies_clients_customers_group` */
+
+DROP TABLE IF EXISTS `tbl_sms_owner_companies_clients_customers_group`;
+
+CREATE TABLE `tbl_sms_owner_companies_clients_customers_group` (
+  `socccg_id` int(11) NOT NULL AUTO_INCREMENT,
+  `socccg_name` varchar(200) NOT NULL,
+  `socccg_link_to_soccc` int(11) NOT NULL,
+  PRIMARY KEY (`socccg_id`),
+  KEY `FK_tbl_sms_owner_companies_clients_customers_group` (`socccg_link_to_soccc`),
+  CONSTRAINT `FK_tbl_sms_owner_companies_clients_customers_group` FOREIGN KEY (`socccg_link_to_soccc`) REFERENCES `tbl_sms_owner_companies_clients` (`socc_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_owner_companies_clients_customers_group` */
+
+insert  into `tbl_sms_owner_companies_clients_customers_group`(`socccg_id`,`socccg_name`,`socccg_link_to_soccc`) values (1,'گروه ممتازان',2),(2,'معلمین',2),(3,'تنبل ها',2);
+
+/*Table structure for table `tbl_sms_owner_companies_clients_customers_group_members` */
+
+DROP TABLE IF EXISTS `tbl_sms_owner_companies_clients_customers_group_members`;
+
+CREATE TABLE `tbl_sms_owner_companies_clients_customers_group_members` (
+  `socccgm_id` int(11) NOT NULL AUTO_INCREMENT,
+  `socccgm_link_to_customer` int(11) NOT NULL,
+  `socccgm_link_to_group` int(11) NOT NULL,
+  PRIMARY KEY (`socccgm_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_owner_companies_clients_customers_group_members` */
+
+/*Table structure for table `tbl_sms_owner_companies_clients_customers_numbers` */
+
+DROP TABLE IF EXISTS `tbl_sms_owner_companies_clients_customers_numbers`;
+
+CREATE TABLE `tbl_sms_owner_companies_clients_customers_numbers` (
+  `socccn_id` int(11) NOT NULL AUTO_INCREMENT,
+  `socccn_name` varchar(200) DEFAULT NULL,
+  `socccn_family` varchar(200) DEFAULT NULL,
+  `socccn_relate` varchar(100) DEFAULT NULL COMMENT 'نسبت دارنده ی خط با کاستومر',
+  `socccn_num` varchar(14) DEFAULT NULL COMMENT 'شماره موبایل مورد نظر',
+  `socccn_client_customers_link` int(11) DEFAULT NULL COMMENT 'ارتباط با شخص مورد نظر',
+  `socccn_position` int(11) DEFAULT '1' COMMENT '0=disable 1=bothside 2=only rec',
+  PRIMARY KEY (`socccn_id`),
+  KEY `FK_tbl_sms_owner_companies_clients_customers_numbers` (`socccn_client_customers_link`),
+  CONSTRAINT `FK_tbl_sms_owner_companies_clients_customers_numbers` FOREIGN KEY (`socccn_client_customers_link`) REFERENCES `tbl_sms_owner_companies_clients_customers` (`soccc_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_owner_companies_clients_customers_numbers` */
+
+insert  into `tbl_sms_owner_companies_clients_customers_numbers`(`socccn_id`,`socccn_name`,`socccn_family`,`socccn_relate`,`socccn_num`,`socccn_client_customers_link`,`socccn_position`) values (1,'پدر','پدرفاملیل','پدر','09125248398',1,1);
+
+/*Table structure for table `tbl_sms_owner_companies_clients_items` */
+
+DROP TABLE IF EXISTS `tbl_sms_owner_companies_clients_items`;
+
+CREATE TABLE `tbl_sms_owner_companies_clients_items` (
+  `socci_id` int(11) NOT NULL AUTO_INCREMENT,
+  `socci_name` varchar(200) NOT NULL COMMENT 'نام درس یا آیتم مورد نظر',
+  `socci_link_to_soccc` int(11) NOT NULL,
+  `socci_date` datetime NOT NULL,
+  `socci_code` varchar(6) NOT NULL COMMENT 'کدی که کاربر در اس ام اسش میزند',
+  `socci_type` smallint(6) DEFAULT '1' COMMENT '1=nomreh  2=nazar sanji',
+  `socci_nazar_start` datetime DEFAULT NULL,
+  `socci_nazar_end` datetime DEFAULT NULL,
+  PRIMARY KEY (`socci_id`),
+  KEY `FK_tbl_sms_owner_companies_clients_items` (`socci_link_to_soccc`),
+  CONSTRAINT `FK_tbl_sms_owner_companies_clients_items` FOREIGN KEY (`socci_link_to_soccc`) REFERENCES `tbl_sms_owner_companies_clients` (`socc_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_owner_companies_clients_items` */
+
+insert  into `tbl_sms_owner_companies_clients_items`(`socci_id`,`socci_name`,`socci_link_to_soccc`,`socci_date`,`socci_code`,`socci_type`,`socci_nazar_start`,`socci_nazar_end`) values (1,'ریاضی',2,'2013-09-09 12:53:07','1',1,'2013-09-01 12:53:19','2013-09-29 12:53:26');
+
+/*Table structure for table `tbl_sms_owner_companies_clients_items_details` */
+
+DROP TABLE IF EXISTS `tbl_sms_owner_companies_clients_items_details`;
+
+CREATE TABLE `tbl_sms_owner_companies_clients_items_details` (
+  `soccid_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `soccid_link_to_socci` int(11) NOT NULL,
+  `soccid_result` float DEFAULT NULL COMMENT 'نمره یا قیمت های مورد نظر',
+  `soccid_date` datetime NOT NULL COMMENT 'تاریخ قرارگیری در سیستم',
+  `soccid_soccc_link` int(11) NOT NULL COMMENT 'ارتباط با دانش آموزان',
+  PRIMARY KEY (`soccid_id`),
+  KEY `FK_tbl_sms_owner_companies_clients_items_details` (`soccid_soccc_link`),
+  KEY `FK_tbl_sms_owner_companies_clients_items_details2` (`soccid_link_to_socci`),
+  CONSTRAINT `FK_tbl_sms_owner_companies_clients_items_details` FOREIGN KEY (`soccid_soccc_link`) REFERENCES `tbl_sms_owner_companies_clients_customers` (`soccc_id`),
+  CONSTRAINT `FK_tbl_sms_owner_companies_clients_items_details2` FOREIGN KEY (`soccid_link_to_socci`) REFERENCES `tbl_sms_owner_companies_clients_items` (`socci_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_owner_companies_clients_items_details` */
+
+insert  into `tbl_sms_owner_companies_clients_items_details`(`soccid_id`,`soccid_link_to_socci`,`soccid_result`,`soccid_date`,`soccid_soccc_link`) values (1,1,20,'2013-09-09 12:53:51',1);
+
+/*Table structure for table `tbl_sms_owner_companies_clients_polls` */
+
+DROP TABLE IF EXISTS `tbl_sms_owner_companies_clients_polls`;
+
+CREATE TABLE `tbl_sms_owner_companies_clients_polls` (
+  `soccp_id` int(11) NOT NULL AUTO_INCREMENT,
+  `soccp_name` varchar(100) NOT NULL COMMENT 'نام نظر سنجی',
+  `soccp_answerable` tinyint(1) NOT NULL,
+  `soccp_answer_text` varchar(600) DEFAULT NULL COMMENT 'پیام مربوطه به نظر {0} یعنی نظر مورد نظر ,}1{ یعنی کد نظر',
+  `soccp_start_date` datetime NOT NULL,
+  `soccp_end_date` datetime NOT NULL,
+  `soccp_is_it_limited` tinyint(1) NOT NULL COMMENT 'آیا این نظر سنجی محدود به گروهی است ؟',
+  `soccp_link_to_socc` int(11) NOT NULL,
+  `soccp_link_to_socccg` int(11) DEFAULT NULL,
+  PRIMARY KEY (`soccp_id`),
+  KEY `FK_tbl_sms_owner_companies_clients_polls` (`soccp_link_to_socc`),
+  KEY `FK_tbl_sms_owner_companies_clients_polls2` (`soccp_link_to_socccg`),
+  CONSTRAINT `FK_tbl_sms_owner_companies_clients_polls` FOREIGN KEY (`soccp_link_to_socc`) REFERENCES `tbl_sms_owner_companies_clients` (`socc_id`),
+  CONSTRAINT `FK_tbl_sms_owner_companies_clients_polls2` FOREIGN KEY (`soccp_link_to_socccg`) REFERENCES `tbl_sms_owner_companies_clients_customers_group` (`socccg_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_owner_companies_clients_polls` */
+
+insert  into `tbl_sms_owner_companies_clients_polls`(`soccp_id`,`soccp_name`,`soccp_answerable`,`soccp_answer_text`,`soccp_start_date`,`soccp_end_date`,`soccp_is_it_limited`,`soccp_link_to_socc`,`soccp_link_to_socccg`) values (1,'نظر سنجی تستی',0,'سلام }0{    }1{','2013-08-09 10:00:00','2013-08-09 19:00:00',0,2,NULL);
+
+/*Table structure for table `tbl_sms_owner_companies_clients_polls_items` */
+
+DROP TABLE IF EXISTS `tbl_sms_owner_companies_clients_polls_items`;
+
+CREATE TABLE `tbl_sms_owner_companies_clients_polls_items` (
+  `soccpi_id` int(11) NOT NULL,
+  `soccpi_value` varchar(50) NOT NULL COMMENT 'اس ام اس دریافتی',
+  `soccpi_display` varchar(200) NOT NULL COMMENT 'تایتل اون اعتبارات',
+  `soccpi_link_to_soccp` int(11) NOT NULL,
+  PRIMARY KEY (`soccpi_id`),
+  KEY `FK_tbl_sms_owner_companies_clients_polls_items` (`soccpi_link_to_soccp`),
+  CONSTRAINT `FK_tbl_sms_owner_companies_clients_polls_items` FOREIGN KEY (`soccpi_link_to_soccp`) REFERENCES `tbl_sms_owner_companies_clients_polls` (`soccp_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_owner_companies_clients_polls_items` */
+
+insert  into `tbl_sms_owner_companies_clients_polls_items`(`soccpi_id`,`soccpi_value`,`soccpi_display`,`soccpi_link_to_soccp`) values (0,'1','321321321',1);
+
+/*Table structure for table `tbl_sms_recieved` */
+
+DROP TABLE IF EXISTS `tbl_sms_recieved`;
+
+CREATE TABLE `tbl_sms_recieved` (
+  `sr_id` int(11) NOT NULL AUTO_INCREMENT,
+  `sr_sms_text` text,
+  `sr_sms_sender_number` varchar(16) NOT NULL,
+  `sr_sms_lines_link` int(11) NOT NULL,
+  `sr_date_of_recieved` datetime NOT NULL,
+  PRIMARY KEY (`sr_id`),
+  KEY `FK_tbl_sms_recieved` (`sr_sms_lines_link`),
+  CONSTRAINT `FK_tbl_sms_recieved` FOREIGN KEY (`sr_sms_lines_link`) REFERENCES `tbl_sms_lines` (`sl_int`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_recieved` */
+
+insert  into `tbl_sms_recieved`(`sr_id`,`sr_sms_text`,`sr_sms_sender_number`,`sr_sms_lines_link`,`sr_date_of_recieved`) values (1,'uhiuhuihiuh','09125248398',1,'0000-00-00 00:00:00'),(2,'29873129837','091221312312',1,'0000-00-00 00:00:00'),(3,'29873129837','091221312312',1,'0000-00-00 00:00:00'),(4,'1122','09125248398',1,'0000-00-00 00:00:00'),(5,'1122','09125248398',1,'0000-00-00 00:00:00'),(6,'1122','09125248398',1,'0000-00-00 00:00:00'),(7,'1122','09125248398',1,'0000-00-00 00:00:00'),(8,'uhiuhuihiuh','09125248398',1,'0000-00-00 00:00:00'),(9,'1122','09125248398',1,'0000-00-00 00:00:00'),(11,'1','09125248398',1,'0000-00-00 00:00:00'),(12,'1','09125248398',1,'0000-00-00 00:00:00');
+
+/*Table structure for table `tbl_sms_secure_module_premission` */
+
+DROP TABLE IF EXISTS `tbl_sms_secure_module_premission`;
+
+CREATE TABLE `tbl_sms_secure_module_premission` (
+  `ssmp_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ssmp_module_link` int(11) NOT NULL,
+  `ssmp_user_link` int(11) DEFAULT NULL,
+  `ssmp_type_of_view` int(11) DEFAULT NULL COMMENT '1=all 2=view 3=disable',
+  PRIMARY KEY (`ssmp_id`),
+  KEY `FK_tbl_sms_secure_module_premission` (`ssmp_user_link`),
+  KEY `FK_tbl_sms_secure_module_premission2` (`ssmp_module_link`),
+  CONSTRAINT `FK_tbl_sms_secure_module_premission` FOREIGN KEY (`ssmp_user_link`) REFERENCES `tbl_sms_secure_users` (`ssu_id`),
+  CONSTRAINT `FK_tbl_sms_secure_module_premission2` FOREIGN KEY (`ssmp_module_link`) REFERENCES `tbl_sms_secure_modules` (`ssm_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_secure_module_premission` */
+
+/*Table structure for table `tbl_sms_secure_modules` */
+
+DROP TABLE IF EXISTS `tbl_sms_secure_modules`;
+
+CREATE TABLE `tbl_sms_secure_modules` (
+  `ssm_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ssm_page_file_name` varchar(100) NOT NULL,
+  `ssm_page_title` varchar(100) NOT NULL,
+  `ssm_type` smallint(6) DEFAULT '1' COMMENT '1=real 2=unreal page name',
+  PRIMARY KEY (`ssm_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_secure_modules` */
+
+/*Table structure for table `tbl_sms_secure_users` */
+
+DROP TABLE IF EXISTS `tbl_sms_secure_users`;
+
+CREATE TABLE `tbl_sms_secure_users` (
+  `ssu_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ssu_name` varchar(100) NOT NULL,
+  `ssu_pass` varchar(400) NOT NULL,
+  `ssu_active` smallint(6) DEFAULT '1',
+  `ssu_socc_link` int(11) NOT NULL,
+  `suu_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`ssu_id`,`ssu_name`),
+  UNIQUE KEY `NewIndex1` (`ssu_name`),
+  KEY `FK_tbl_sms_secure_users` (`ssu_socc_link`),
+  CONSTRAINT `FK_tbl_sms_secure_users` FOREIGN KEY (`ssu_socc_link`) REFERENCES `tbl_sms_owner_companies_clients` (`socc_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_secure_users` */
+
+insert  into `tbl_sms_secure_users`(`ssu_id`,`ssu_name`,`ssu_pass`,`ssu_active`,`ssu_socc_link`,`suu_date`) values (1,'bahmany','009100',1,2,NULL);
+
+/*Table structure for table `tbl_sms_secure_users_clicked_module` */
+
+DROP TABLE IF EXISTS `tbl_sms_secure_users_clicked_module`;
+
+CREATE TABLE `tbl_sms_secure_users_clicked_module` (
+  `ssusm_user_link` int(11) NOT NULL,
+  `ssusm_date` datetime NOT NULL,
+  `ssusm_module_link` int(11) NOT NULL,
+  KEY `FK_tbl_sms_secure_users_clicked_module` (`ssusm_user_link`),
+  KEY `FK_tbl_sms_secure_users_clicked_module2` (`ssusm_module_link`),
+  CONSTRAINT `FK_tbl_sms_secure_users_clicked_module` FOREIGN KEY (`ssusm_user_link`) REFERENCES `tbl_sms_secure_users` (`ssu_id`),
+  CONSTRAINT `FK_tbl_sms_secure_users_clicked_module2` FOREIGN KEY (`ssusm_module_link`) REFERENCES `tbl_sms_secure_modules` (`ssm_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_secure_users_clicked_module` */
+
+/*Table structure for table `tbl_sms_send` */
+
+DROP TABLE IF EXISTS `tbl_sms_send`;
+
+CREATE TABLE `tbl_sms_send` (
+  `ss_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `ss_number` varchar(10) NOT NULL,
+  `ss_date_of_send` datetime NOT NULL COMMENT 'تاریخ ارسال',
+  `ss_text` text NOT NULL,
+  `ss_credit_of_this_sms` int(11) DEFAULT NULL COMMENT 'هزینه ی اس ام اس جاری',
+  `ss_position` smallint(6) DEFAULT '0' COMMENT '0=not send 1=send 2=delivered',
+  `ss_send_time` datetime DEFAULT NULL,
+  `ss_deliver_time` datetime DEFAULT NULL,
+  `ss_socccn_link` int(11) DEFAULT NULL COMMENT 'اگر نیاز به ارتباط داشت نوشته شود',
+  `ss_sb_link` int(11) DEFAULT NULL COMMENT 'link to billing',
+  PRIMARY KEY (`ss_id`),
+  KEY `FK_tbl_sms_send` (`ss_socccn_link`),
+  KEY `FK_tbl_sms_send2` (`ss_sb_link`),
+  CONSTRAINT `FK_tbl_sms_send` FOREIGN KEY (`ss_socccn_link`) REFERENCES `tbl_sms_owner_companies_clients_customers_numbers` (`socccn_id`),
+  CONSTRAINT `FK_tbl_sms_send2` FOREIGN KEY (`ss_sb_link`) REFERENCES `tbl_sms_billing` (`sb_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_send` */
+
+insert  into `tbl_sms_send`(`ss_id`,`ss_number`,`ss_date_of_send`,`ss_text`,`ss_credit_of_this_sms`,`ss_position`,`ss_send_time`,`ss_deliver_time`,`ss_socccn_link`,`ss_sb_link`) values (1,'0912524839','2013-01-01 00:00:00','hello',0,0,'2013-01-01 00:00:00','2013-01-01 00:00:00',1,2),(2,'0122123123','2014-01-01 00:00:00','hiiiii',210,1,'2014-01-01 00:00:00','2014-01-01 00:00:00',1,2),(3,'13123123','2014-01-01 00:00:00','ewefwefwef',210,0,'2014-01-01 00:00:00','2014-01-01 00:00:00',1,2),(4,'212312','2013-01-01 00:00:00','منممنممنممنم\r\nبب',90,15,'2013-11-01 00:00:00','2013-01-01 00:00:00',1,2);
+
+/*Table structure for table `tbl_sms_send_archive` */
+
+DROP TABLE IF EXISTS `tbl_sms_send_archive`;
+
+CREATE TABLE `tbl_sms_send_archive` (
+  `ss_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `ss_number` varchar(10) NOT NULL,
+  `ss_date_of_send` datetime NOT NULL COMMENT 'تاریخ ارسال',
+  `ss_text` text NOT NULL,
+  `ss_credit_of_this_sms` int(11) DEFAULT NULL COMMENT 'هزینه ی اس ام اس جاری',
+  `ss_position` smallint(6) DEFAULT '0' COMMENT '0=not send 1=send 2=delivered',
+  `ss_send_time` datetime DEFAULT NULL,
+  `ss_deliver_time` datetime DEFAULT NULL,
+  `ss_socccn_link` int(11) DEFAULT NULL COMMENT 'اگر نیاز به ارتباط داشت نوشته شود',
+  `ss_sb_link` int(11) DEFAULT NULL COMMENT 'link to billing',
+  PRIMARY KEY (`ss_id`),
+  KEY `FK_tbl_sms_send` (`ss_socccn_link`),
+  KEY `FK_tbl_sms_send2` (`ss_sb_link`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_send_archive` */
+
+/*Table structure for table `tbl_sms_webservices` */
+
+DROP TABLE IF EXISTS `tbl_sms_webservices`;
+
+CREATE TABLE `tbl_sms_webservices` (
+  `sw_id` int(11) NOT NULL AUTO_INCREMENT,
+  `sw_name` varchar(200) NOT NULL COMMENT 'name of webservice',
+  `sw_address` varchar(400) NOT NULL COMMENT 'address of webservice',
+  `sw_send_format` text NOT NULL,
+  `sw_recieve_format` text NOT NULL,
+  `sw_delivery_format` text NOT NULL,
+  `sw_date` datetime NOT NULL,
+  `sw_expire_date` datetime NOT NULL,
+  PRIMARY KEY (`sw_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_sms_webservices` */
+
+insert  into `tbl_sms_webservices`(`sw_id`,`sw_name`,`sw_address`,`sw_send_format`,`sw_recieve_format`,`sw_delivery_format`,`sw_date`,`sw_expire_date`) values (1,'شرکت رهیاب','تهران خیابان','<xml format>','<xml format>','<xml format>','2013-07-31 00:00:00','2014-07-31 00:00:00');
+
+/*Table structure for table `tbl_users` */
+
+DROP TABLE IF EXISTS `tbl_users`;
+
+CREATE TABLE `tbl_users` (
+  `u_id` int(11) NOT NULL AUTO_INCREMENT,
+  `u_type` tinyint(4) NOT NULL COMMENT '1=owner admin 2=owner compnay admin 3=owner company clients admin  4=owner company clients customer admin',
+  `u_name` varchar(400) NOT NULL,
+  `u_pass` varchar(1000) NOT NULL,
+  `u_so_id` int(11) DEFAULT NULL,
+  `u_soc_id` int(11) DEFAULT NULL,
+  `u_socc_id` int(11) DEFAULT NULL,
+  `u_soccc_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`u_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_users` */
+
+insert  into `tbl_users`(`u_id`,`u_type`,`u_name`,`u_pass`,`u_so_id`,`u_soc_id`,`u_socc_id`,`u_soccc_id`) values (1,1,'bahmany','009100',1,NULL,NULL,NULL);
+
+/*Table structure for table `tbl_users_modules` */
+
+DROP TABLE IF EXISTS `tbl_users_modules`;
+
+CREATE TABLE `tbl_users_modules` (
+  `um_id` int(11) NOT NULL AUTO_INCREMENT,
+  `um_module_type` int(11) NOT NULL COMMENT '1=physical form 2=not form',
+  `um_title` varchar(400) DEFAULT NULL,
+  `um_link_forms` int(11) DEFAULT NULL,
+  PRIMARY KEY (`um_id`),
+  KEY `rfegwertg` (`um_link_forms`),
+  CONSTRAINT `rfegwertg` FOREIGN KEY (`um_link_forms`) REFERENCES `tbl_forms` (`f_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `tbl_users_modules` */
+
+/*Table structure for table `test` */
+
+DROP TABLE IF EXISTS `test`;
+
+CREATE TABLE `test` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `text` varchar(600) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+/*Data for the table `test` */
+
+insert  into `test`(`id`,`text`) values (1,NULL),(2,NULL);
+
+/* Trigger structure for table `tbl_sms_billing_credits` */
+
+DELIMITER $$
+
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `trg_after_insert_to_billing_add_credit` */$$
+
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `trg_after_insert_to_billing_add_credit` AFTER INSERT ON `tbl_sms_billing_credits` FOR EACH ROW BEGIN
+update `tbl_sms_owner_companies_clients` set `socc_remain_credit` = `socc_remain_credit`+new.sbc_added_credit where socc_id=new.sbc_companies_clients_link;
+    END */$$
+
+
+DELIMITER ;
+
+/* Trigger structure for table `tbl_sms_recieved` */
+
+DELIMITER $$
+
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `trg_sms_recieved_after_insert` */$$
+
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `trg_sms_recieved_after_insert` AFTER INSERT ON `tbl_sms_recieved` FOR EACH ROW BEGIN
+    
+DECLARE answer_type SMALLINT DEFAULT 1;
+DECLARE answer_text_thanks VARCHAR(400);
+DECLARE answer_text_auto VARCHAR(400);
+declare char_code int;
+declare sms_index int;
+declare _type boolean;
+declare response_text varchar(600);
+DECLARE sms_format VARCHAR(600);
+declare lesson_name varchar(200);
+declare lesson_no float;
+/*
+1=auto num 
+2=recieve only 
+3=send thatnks only 
+4=if commant thanks if num req ok 
+*/
+SELECT `socc_type`,`socc_thanks_massage` INTO answer_type,answer_text_thanks FROM `tbl_sms_owner_companies_clients` WHERE `socc_reci_line_link`=new.`sr_sms_lines_link` LIMIT 1;
+/*this line shows the current sms is only numbers*/
+WHILE sms_index < LENGTH(new.`sr_sms_text`) DO
+SELECT ORD(SUBSTRING(new.`sr_sms_text`,sms_index,1)) INTO char_code;
+IF  ((char_code > 48) AND (char_code < 58))  THEN SET _type=true; else  set _type=true; END IF;
+SET sms_index = sms_index+1;
+END WHILE;
+set answer_type=1;
+set _type=TRUE;
+/*-----------------------------------------------*/
+IF answer_type=1 and _type=true THEN
+	/*SMS format retrieved*/
+	(SELECT `socc_send_auto_format` INTO sms_format FROM `tbl_sms_owner_companies_clients` WHERE `socc_id` = 
+	       (SELECT `socccn_client_customers_link` FROM `tbl_sms_owner_companies_clients_customers_numbers` 
+	       WHERE `socccn_num` = new.`sr_sms_sender_number` LIMIT 1) LIMIT 1);
+	select t1.`socci_name`,(select t2.`soccid_result` from `tbl_sms_owner_companies_clients_items_details` t2 where t2.`soccid_link_to_socci`=t1.`socci_id` order by t2.`soccid_id` desc limit 1) into 
+	       lesson_name,lesson_no from `tbl_sms_owner_companies_clients_items` t1 where t1.`socci_code`=new.`sr_sms_text`;
+	/*lesson_name,lesson_no retrived*/
+	SET sms_format=REPLACE(sms_format,'<1>',lesson_name);
+	SET sms_format=REPLACE(sms_format,'<2>',lesson_no);
+	insert into test (`text`) values(sms_format);
+	
+END IF;
+END */$$
+
+
+DELIMITER ;
+
+/* Trigger structure for table `tbl_sms_send` */
+
+DELIMITER $$
+
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `trg_sms_send_before_insert` */$$
+
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `trg_sms_send_before_insert` BEFORE INSERT ON `tbl_sms_send` FOR EACH ROW BEGIN
+    
+DECLARE per_farsi_sms_value INT;
+DECLARE per_english_sms_value INT;
+DECLARE farsi_sms_size INT;
+DECLARE english_sms_size INT;
+DECLARE sms_text text;
+DECLARE sms_index INT DEFAULT 0;
+DECLARE char_code INT;
+DECLARE lang SMALLINT DEFAULT 0;
+declare sms_size int;
+declare sms_count,mod_sms_count float;
+SELECT `sb_fr_send_rials_per_sms`,
+       `sb_fr_one_sms_chars_length`,
+       `sb_en_send_rials_per_sms`,
+       `sb_en_one_sms_chars_length`
+	INTO    
+	per_farsi_sms_value,
+	farsi_sms_size,
+	per_english_sms_value,
+	english_sms_size
+	
+	 FROM `tbl_sms_billing` WHERE 
+	`sb_id` = new.ss_sb_link;
+set sms_text = new.ss_text;
+SET sms_size = LENGTH(sms_text);
+while sms_index < sms_size do
+SELECT ORD(SUBSTRING(sms_text,sms_index,1)) into char_code;
+if  char_code > 20 and char_code < 48  then SET lang=1; end if;
+IF  char_code > 58 AND char_code < 128  THEN SET lang=1; END IF;
+IF  char_code > 160 AND char_code < 8482  THEN SET lang=1; END IF;  
+SET sms_index = sms_index+1;
+end while;
+IF lang=1 THEN
+	SET sms_count = sms_size / english_sms_size;
+	SET mod_sms_count = sms_size MOD english_sms_size;
+	IF  mod_sms_count > 0 THEN SET sms_count=sms_count+1; END IF;
+	set new.ss_credit_of_this_sms =  FLOOR(sms_count)*per_english_sms_value;
+END IF;
+IF lang=0 THEN
+set sms_size = sms_size/2;
+	SET sms_count = sms_size / farsi_sms_size;
+	SET mod_sms_count = sms_size MOD farsi_sms_size;
+	IF  mod_sms_count > 0 THEN SET sms_count=sms_count+1; END IF;
+	SET new.ss_credit_of_this_sms =  FLOOR(sms_count)*per_farsi_sms_value;
+END IF;
+END */$$
+
+
+DELIMITER ;
+
+/* Trigger structure for table `tbl_sms_send` */
+
+DELIMITER $$
+
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `trg_sms_send_before_update` */$$
+
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `trg_sms_send_before_update` BEFORE UPDATE ON `tbl_sms_send` FOR EACH ROW BEGIN
+    
+DECLARE per_farsi_sms_value INT;
+DECLARE per_english_sms_value INT;
+DECLARE farsi_sms_size INT;
+DECLARE english_sms_size INT;
+DECLARE sms_text text;
+DECLARE sms_index INT DEFAULT 0;
+DECLARE char_code INT;
+DECLARE lang SMALLINT DEFAULT 0;
+declare sms_size int;
+declare sms_count,mod_sms_count float;
+SELECT `sb_fr_send_rials_per_sms`,
+       `sb_fr_one_sms_chars_length`,
+       `sb_en_send_rials_per_sms`,
+       `sb_en_one_sms_chars_length`
+	INTO    
+	per_farsi_sms_value,
+	farsi_sms_size,
+	per_english_sms_value,
+	english_sms_size
+	
+	 FROM `tbl_sms_billing` WHERE 
+	`sb_id` = new.ss_sb_link;
+set sms_text = new.ss_text;
+SET sms_size = LENGTH(sms_text);
+while sms_index < sms_size do
+SELECT ORD(SUBSTRING(sms_text,sms_index,1)) into char_code;
+if  char_code > 20 and char_code < 48  then SET lang=1; end if;
+IF  char_code > 58 AND char_code < 128  THEN SET lang=1; END IF;
+IF  char_code > 160 AND char_code < 8482  THEN SET lang=1; END IF;  
+SET sms_index = sms_index+1;
+end while;
+IF lang=1 THEN
+	SET sms_count = sms_size / english_sms_size;
+	SET mod_sms_count = sms_size MOD english_sms_size;
+	IF  mod_sms_count > 0 THEN SET sms_count=sms_count+1; END IF;
+	set new.ss_credit_of_this_sms =  FLOOR(sms_count)*per_english_sms_value;
+END IF;
+IF lang=0 THEN
+set sms_size = sms_size/2;
+	SET sms_count = sms_size / farsi_sms_size;
+	SET mod_sms_count = sms_size MOD farsi_sms_size;
+	IF  mod_sms_count > 0 THEN SET sms_count=sms_count+1; END IF;
+	SET new.ss_credit_of_this_sms =  FLOOR(sms_count)*per_farsi_sms_value;
+END IF;
+END */$$
+
+
+DELIMITER ;
+
+/* Function  structure for function  `func_get_cellphone_id` */
+
+/*!50003 DROP FUNCTION IF EXISTS `func_get_cellphone_id` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `func_get_cellphone_id`(recievied_no VARCHAR(14)) RETURNS int(11)
+    READS SQL DATA
+BEGIN
+declare _type int default 0;
+/*0=disable 1=bothside 2=only rec  */
+select t1.`socccn_id` into _type from `tbl_sms_owner_companies_clients_customers_numbers` t1 where t1.`socccn_num` = recievied_no;
+return _type;
+    END */$$
+DELIMITER ;
+
+/* Function  structure for function  `func_get_cellphone_replay_premission` */
+
+/*!50003 DROP FUNCTION IF EXISTS `func_get_cellphone_replay_premission` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `func_get_cellphone_replay_premission`(recievied_no VARCHAR(14)) RETURNS int(11)
+    READS SQL DATA
+BEGIN
+declare _type int default 0;
+/*0=disable 1=bothside 2=only rec  */
+select t1.`socccn_position` into _type from `tbl_sms_owner_companies_clients_customers_numbers` t1 where t1.`socccn_num` = recievied_no;
+return _type;
+    END */$$
+DELIMITER ;
+
+/* Function  structure for function  `func_get_client_customer_id` */
+
+/*!50003 DROP FUNCTION IF EXISTS `func_get_client_customer_id` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `func_get_client_customer_id`(recievied_no VARCHAR(14)) RETURNS int(11)
+    READS SQL DATA
+BEGIN
+declare _type int default 0;
+/*0=disable 1=bothside 2=only rec  */
+select t2.`soccc_companies_clients_link` into _type from `tbl_sms_owner_companies_clients_customers` t2 where 
+t2.`soccc_id` = (select t3.`socccn_client_customers_link` from `tbl_sms_owner_companies_clients_customers_numbers` t3 where t3.`socccn_num` = recievied_no) limit 1;
+return _type;
+    END */$$
+DELIMITER ;
+
+/* Function  structure for function  `func_get_companies_client_replay_premission` */
+
+/*!50003 DROP FUNCTION IF EXISTS `func_get_companies_client_replay_premission` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `func_get_companies_client_replay_premission`(recievied_no VARCHAR(14)) RETURNS int(11)
+    READS SQL DATA
+BEGIN
+declare _type int default 0;
+/*   1=auto num  2=recieve only  3=send thatnks only  4=if commant thanks if num req ok    */
+select t1.`socc_type` into _type from `tbl_sms_owner_companies_clients` t1 where t1.`socc_id` = 
+(select t2.`soccc_companies_clients_link` from `tbl_sms_owner_companies_clients_customers` t2 where t2.`soccc_id`=
+(select t3.`socccn_client_customers_link` from `tbl_sms_owner_companies_clients_customers_numbers` t3 where t3.`socccn_num`=recievied_no limit 1) limit 1);
+return _type;
+    END */$$
+DELIMITER ;
+
+/* Function  structure for function  `func_IsNumeric` */
+
+/*!50003 DROP FUNCTION IF EXISTS `func_IsNumeric` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `func_IsNumeric`(sIn varchar(1024)) RETURNS tinyint(4)
+RETURN sIn REGEXP '^(-|\\+){0,1}([0-9]+\\.[0-9]*|[0-9]*\\.[0-9]+|[0-9]+)$' */$$
+DELIMITER ;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

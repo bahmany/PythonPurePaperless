@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd"
+    >
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<html lang="en">
+<head>
+    <title><!-- Insert your title here --></title>
+</head>
+<body>
+    <div id="div_uploader">
+        
+        <ul>
+            <li>
+توجه داشته باشد پس از امضای نامه اقدام به انتقال تصویر نامه بنمایید
+            </li>
+            <li>
+            توجه داشته باشد پس از انتقال متن تصویری نامه دیگر قادر به ویرایش و یا جایگزینی آن نخواهید بود
+            </li>
+            <li>
+در صورت مقایرت متن نامه اسکن شده با نامه امضا شده اولیت با نامه امضا شده در سیستم خواهد بود و این مقایرت تخلف است
+            </li>
+            
+        </ul>
+        
+        <form enctype="multipart/form-data" action="save_file_scan_of_letter.py" method="post" id="filesender">
+        <p>File : <input type="file" name="file1" id="file1"></p>
+        <input type="hidden" name="id" id="id">
+        <p><input type="submit" value="ارسال به سرور" id="btn_sendform"/></p>
+        </form>
+        
+    </div>
+    <div id="div_viewer">
+        <a href="#" onclick="window.location.href='py_main.py?mid=4'">بازگشت به کارتابل</a><br>
+        <img id="scn_ltr" src="dasas"/>
+    </div>
+    
+    <script type="application/x-javascript">
+        document.getElementById("id").value=qs["id"];
+        $("#div_viewer").hide();
+$.post("py_user_manager.py?","checkscanned="+qs["id"],function(data)
+       {
+        if (data[0] != "0") {
+            $("#div_uploader").hide();
+            $("#div_viewer").show();
+            document.getElementById("scn_ltr").src="files/"+data;
+        }
+       });
+
+    </script>
+    
+    
+    
+</body>
+</html>

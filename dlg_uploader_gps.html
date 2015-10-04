@@ -1,0 +1,396 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd" >
+
+
+<html lang="en">
+  <head>
+    <title>dlg_uploader.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script src="scripts/main_script.js" type="text/javascript"></script>
+    <script type="text/javascript" src="scripts/jquery.min.js"></script>
+  </head>
+  
+  <body>
+    
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+
+    <a href="#" onclick="showw(1)" style="padding-left: 6px; padding-right: 6px;">مشاهده مسیر حرکت  </a> | <a href="#" onclick="showw(2)" style="padding-left: 6px; padding-right: 6px;">آپلود نمودن فایل ها</a>
+	
+                     <table style="width:100%;">
+		      <tbody>
+			<tr>
+			  <td style="vertical-align: top;" id="div_uploader">
+			    
+			    
+			    
+<div style="width: 320px;border-color: #325027;border-radius: 10px 10px 10px 10px;border-style: solid;border-width: 1px;box-shadow: 0 0 5px #888888;font-family: BYekan;font-size: 15px;margin-bottom: 10px;margin-top: 15px;padding: 10px;">
+		  
+	
+	
+			  <ul>
+			    <span style="font-size: large; font-weight: bold; color: red;">
+			    نکات مهم
+			    </span>
+			    
+			    
+			  <li>لطفا از اینکه دستگاه کنترل نگهبانان مربوط به کدام نگهبان است اطمینان حاصل نمایید</li>
+			  <li>پس از انتقال فایل دستگاه ها دیگر قادر به ویرایش نخواهید بود</li>
+			  <li>در هر بار انتقال فایل فقط میتوانید فایل های مربوط به یک نگهبان را منتقل کنید</li>
+			  <li>ممکن از انتقال فایل کمی طولانی باشد ، خواهشمندیم تا پایان مرحله ی انتقال صبر کنید</li>
+			  <li>این سیستم فقط فایل های مربوط به دستگاه های نگهبانی را میخواند ، لذا از ارسال سایر فایل ها خودداری نمایید</li>
+			  </ul>
+
+		
+			    
+		 <div id="div_fileuploader" style="width: 300px; border-color: #325027;border-radius: 10px 10px 10px 10px;border-style: solid;border-width: 1px;box-shadow: 0 0 5px #888888;font-family: BNazaninRegular;font-size: 15px;margin-bottom: 10px;margin-top: 15px;padding: 10px;">                            
+
+
+<hr>
+<p>مرحله اول : انتخاب نام نگهبان مورد نظر : </p>
+<select name="sometext" id="sometext" size="5">
+
+</select>
+<hr>
+  <p>مرحله دوم : انتخاب فایل های مربوط به نگهبان مورد نظر :  </p>
+
+
+
+<input type="hidden" name="uid" id="uid">
+<hr>
+<p>مرحله سوم : ارسال فایل به سرور : </p>
+<textarea id="TextArea1" name = "TextArea1" cols="20" rows="2"></textarea>
+<p>
+  
+</p><p>
+<p><a href="#"  id="sndit" onclick="SendIt()">ارسال به سرور</a></p>
+ <hr>
+	<table>
+    
+	  <tbody>
+<tr>
+	    <td>
+	      
+
+
+	    </td>
+	    
+	    
+
+
+	</tr>
+	  </tbody>
+	</table>
+
+ 
+
+
+
+</div>	    
+
+
+	</div>
+
+</td>
+			  <td  style="vertical-align: top;" id="div_prev">
+	      <div style="width: 320px;border-color: #325027;border-radius: 10px 10px 10px 10px;border-style: solid;border-width: 1px;box-shadow: 0 0 5px #888888;font-family: BYekan;font-size: 15px;margin-bottom: 10px;margin-top: 15px;padding: 10px;">
+		<table>
+		  <tbody>
+		    <tr>
+		      <td>
+			<p>مرحله اول : انتخاب نام نگهبان مورد نظر : </p>
+<select multiple="true" name="sometext2" id="sometext2" size="5">
+
+</select>
+<hr>
+  		<p>مرحله دوم : تاریخ روز مورد نظر را وارد نمایید </p>
+		از تاریخ <input id="obj_Text14" type="text" special="nn_da_0" style="width:110px;">
+		<input id="obj_Text144" type="text" special="nn_da_0" style="width:70px;">
+		  <br>
+		تا تاریخ<input id="obj_Text1444" type="text" special="nn_da_0" style="width:110px;">
+		<input id="obj_Text144444" type="text" special="nn_da_0" style="width:70px;">
+		  
+		  
+		  		      <p>مرحله سوم : محاسبه ی تعداد موقعیت های ثبت شده</p>
+		      <a href="#" onclick="get_positions_count()">محاسبه ی موقعیت های ارسال شده</a>
+		      <p>مرحله چهارم : انتخاب تعداد موقعیت دلخواه جهت مشاهده</p>
+		      <input id="obj_count" type="text" style="width: 100px;" value="0"> نقطه از <span id="span_count"></span> نقطه 
+		      <a href="#" onclick="get_pos()">دریافت موقعیت ها</a>
+		      <p>مرحله پنجم : مشاهده مسیر حرکت</p>
+		      <div id="pos_place" style="overflow: scroll; height: 200px;">
+			
+			
+		      </div>
+		      </td>
+		      <td>
+
+		      </td>
+		    </tr>
+		    
+		  </tbody>
+		  
+		</table>
+		
+	      </div>
+
+
+			    
+			 
+			 
+			 
+			 
+			  </td>
+			  <td style="vertical-align: top" id="div_map">
+			    <div style="width: 600px;height: 600px;border-color: #325027;border-radius: 10px 10px 10px 10px;border-style: solid;border-width: 1px;box-shadow: 0 0 5px #888888;font-family: BYekan;font-size: 15px;margin-bottom: 10px;margin-top: 15px;padding: 10px;">
+
+			    	      			<div id="map-canvas" style="width:600px; height: 600px;">
+			  
+			</div>
+			    </div>
+			  </td>
+			  <td id="div_pleasewait">
+			    <div style="width: 600px;height: 600px;border-color: #325027;border-radius: 10px 10px 10px 10px;border-style: solid;border-width: 1px;box-shadow: 0 0 5px #888888;font-family: BYekan;font-size: 15px;margin-bottom: 10px;margin-top: 15px;padding: 10px;">
+			      <img src="images/477.gif">
+			      <p>لطفا منتظر باشید ، این مرحله ممکن طول بکشد...</p>
+			      <span id="transfered_record"></span>
+			    </div>
+			  </td>
+			</tr>
+			
+		      </tbody>
+		      
+		     </table>   
+
+
+     <script type="application/x-javascript">
+      function SendIt() {
+	var _d1 = document.getElementById("sometext").value;
+	var _d2 = document.getElementById("TextArea1").value;
+	//var _d3 = document.getElementById("").value;
+	datacount = 0;
+	showw(3);
+	$.post("py_gps_save_file.py", {
+	  sometext: _d1,
+	  TextArea1: _d2
+	}, function(dta) {
+	  document.location.href = 'py_main.py?mid=15';
+	});
+      }
+
+      (function($) {
+	$.fn.serializeAll = function() {
+	  var rselectTextarea = /^(?:select|textarea)/i;
+	  var rinput = /^(?:color|date|datetime|datetime-local|email|file|hidden|month|number|password|range|search|tel|text|time|url|week)$/i;
+	  var rCRLF = /\r?\n/g;
+	  var arr = this.map(function() {
+	    return this.elements ? jQuery.makeArray(this.elements) : this;
+	  }).filter(function() {
+	    return this.name && !this.disabled && (this.checked || rselectTextarea.test(this.nodeName) || rinput.test(this.type));
+	  }).map(function(i, elem) {
+	    var val = jQuery(this).val();
+	    return val == null ? null : jQuery.isArray(val) ? jQuery.map(val, function(val, i) {
+	      return {
+		name: elem.name,
+		value: val.replace(rCRLF, "\r\n")
+	      };
+	    }) : {
+	      name: elem.name,
+	      value: val.replace(rCRLF, "\r\n")
+	    };
+	  }).get();
+	  return $.param(arr);
+	}
+	var datacount = 0;
+
+      })(jQuery);
+
+
+      $.post("py_user_manager.py", "negahban=136543-564654-32184-546534", function(data) {
+	var s = []
+	s = data.split("vfdd")
+	var mySel = document.getElementById("sometext"); // Listbox Name 
+	for (var i = 0; i < s.length; i++) {
+	  myOption = document.createElement("Option");
+	  myOption.text = s[i].split("=")[1];
+	  myOption.value = s[i].split("=")[0];
+	  mySel.add(myOption);
+	}
+      });
+      $.post("py_user_manager.py", "negahban=136543-564654-32184-546534", function(data) {
+	var s = []
+	s = data.split("vfdd")
+	var mySel2 = document.getElementById("sometext2");; // Listbox Name 
+	for (var i = 0; i < s.length; i++) {
+	  myOption = document.createElement("Option");
+	  myOption.text = s[i].split("=")[1];
+	  myOption.value = s[i].split("=")[0];
+	  mySel2.add(myOption);
+	}
+      });
+
+      function get_positions_count() {
+	var allSchools = [];
+	var s = document.getElementById("sometext2");
+	for (var i = 0; i < s.options.length; i++) {
+	  if (s.options[i].selected == true) {
+	    var schoolid = s.options[i].value;
+	    allSchools.push(schoolid);
+	  }
+	}
+	var str = "";
+	for (var i = 0; i < allSchools.length; i++) {
+	  if (i == 0) {
+	    str = allSchools[i]
+	  } else {
+	    str = str + "," + allSchools[i]
+
+	  }
+	}
+	str = "sel=" + str + "&dt=" + document.getElementById("obj_Text14").value+"mm"+document.getElementById("obj_Text144").value+"mm"+document.getElementById("obj_Text1444").value+"mm"+document.getElementById("obj_Text144444").value
+
+	$.post("py_gps.py", str, function(data) {
+	  document.getElementById("span_count").innerHTML = data;
+	});
+      }
+
+      function get_pos() {
+	var count_no = parseInt(document.getElementById("span_count").innerHTML);
+	var number_rows_wanted = parseInt(document.getElementById("obj_count").value);
+	var total = parseInt(count_no / number_rows_wanted);
+	//------------------------
+	var allSchools = [];
+	var s = document.getElementById("sometext2");
+	for (var i = 0; i < s.options.length; i++) {
+	  if (s.options[i].selected == true) {
+	    var schoolid = s.options[i].value;
+	    allSchools.push(schoolid);
+	  }
+	}
+	var str = "";
+	for (var i = 0; i < allSchools.length; i++) {
+	  if (i == 0) {
+	    str = allSchools[i]
+	  } else {
+	    str = str + "," + allSchools[i]
+
+	  }
+	}
+	str = "sel2=" + str + "&dt2=" + document.getElementById("obj_Text14").value+"mm"+document.getElementById("obj_Text144").value+"mm"+document.getElementById("obj_Text1444").value+"mm"+document.getElementById("obj_Text144444").value + "&totalrows=" + total.toString();
+	//------------------------------------------------------------
+	$.post("py_gps.py", str, function(data) {
+	  document.getElementById("pos_place").innerHTML = "";
+	  var html = "";
+	  var pos = [];
+	  pos = data.split("cz");
+
+	  var gpath = [];
+	  var marks = [];
+	  var infoW = [];
+	  
+
+	  for (var i = 0; i < pos.length; i++) {
+	    
+
+	    
+	    
+	    var posa = pos[i].split("!");
+	    
+	   
+			
+	    html = html + " <div >تاریخ :       " + posa[3] + "<a href='#' onclick='map.setCenter(new google.maps.LatLng(parseFloat("+posa[1]+"), parseFloat("+posa[0]+")))'><<<<</a></div><hr>";
+	    //gpath.push(new google.maps.LatLng(parseFloat(posa[1]), parseFloat(posa[0])));
+
+
+
+	    var marker = new google.maps.Marker({
+	      position: new google.maps.LatLng(parseFloat(posa[1]), parseFloat(posa[0])),
+	      map: map,
+	      title: posa[2]+'-'+posa[3]+'-'+posa[4]
+	    });
+	    //marks.push(marker)
+	    
+	      google.maps.event.addListener(marker, 'click', function() {
+		
+		//alert("Helllo "+this);
+		 var cont = "<p>  تاریخ حضور  : " + this.getTitle().split("-")[1] + "</p>"+
+			"<p> ارتفاع از سطح دریا : " + this.getTitle().split("-")[0] + "</p>"+
+			"<p> سرعت حرکت : " + this.getTitle().split("-")[2] + " متر در ثانیه</p>";
+			
+	    var infowindow = new google.maps.InfoWindow({
+		 content: cont
+	     });
+	   
+	   
+		
+		infowindow.open(map,this);
+		
+		});
+
+
+
+
+	  }
+
+      /*
+      	  var flightPath = new google.maps.Polyline({
+      	    path: gpath,
+      	    geodesic: true,
+      	    strokeColor: '#FF0000',
+      	    strokeOpacity: 1.0,
+      	    strokeWeight: 2
+      	  });
+      	  flightPath.setMap(map);*/
+	  document.getElementById("pos_place").innerHTML = html;
+	});
+      }
+
+      function showw(id) {
+	if (id == 1) {
+	  $("#div_prev").show();
+	  $("#div_uploader").hide();
+	  $("#div_map").show();
+	  $("#div_pleasewait").hide();
+	}
+	if (id == 2) {
+	  $("#div_prev").hide();
+	  $("#div_uploader").show();
+	  $("#div_map").hide();
+	  $("#div_pleasewait").hide();
+	}
+	if (id == 3) {
+	  $("#div_prev").hide();
+	  $("#div_uploader").hide();
+	  $("#div_map").hide();
+	  $("#div_pleasewait").show();
+	}
+      }
+      showw(1);
+      $("#obj_Text14").mask("1399/99/99");
+      $("#obj_Text1444").mask("1399/99/99");
+      
+      $("#obj_Text144").mask("99:99");
+      $("#obj_Text144444").mask("99:99");
+      
+      
+      var map;
+
+      function initialize() {
+	var mapOptions = {
+	  zoom: 16,
+	  center: new google.maps.LatLng(32.256984, 51.061747),
+	  mapTypeId: google.maps.MapTypeId.SATELLITE
+	};
+	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);</script>
+  </body>
+ 
+
+  
+</html>
+

@@ -1,0 +1,292 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script src="scripts/jquery.maskedinput-1.2.2.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="main_style.css" />
+    <script src="ckeditor/ckeditor.js" type="text/javascript"></script>
+    <script src="scripts/jquery.inputhints.min.js" type="text/javascript"></script>
+    <script src="scripts/main_script.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="scripts/jquery-ui.css" type="text/css" />
+    <script src="scripts/jquery-ui.js" type="text/javascript"></script>
+    <script src="scripts/jalali.js" type="text/javascript"></script>
+    
+    <style type="text/css">
+	input.hint { color: #888; }
+    </style>
+
+    <title>Untitled Document</title>
+</head>
+
+<body dir="rtl">
+    
+
+<div id="div_tels">
+<div id="div_frm">
+    <div id="div_tels_content">
+      	
+			
+		
+    <table><tbody>
+    <tr><td colspan=2> خصوصی <input type="checkbox" id='tnnnn12' style='width:15px;' /></td></tr>
+    <tr><td>نام سازمان</td><td><input type="text" id='tnnnn1'/></td></tr>
+    <tr><td>نام شخص</td><td><input type="text" id='tnnnn2'/></td></tr>
+    <tr><td>سمت</td><td><input type="text" id='tnnnn3'/></td></tr>
+    <tr><td>موضوع فعالیت</td><td><input type="text" id='tnnnn4'/></td></tr>
+    <tr><td>تلفن ثابت</td><td><input type="text" id='tnnnn5'/></td></tr>
+    <tr><td>فاکس</td><td><input type="text" id='tnnnn6'/></td></tr>
+    <tr><td>همراه</td><td><input type="text" id='tnnnn7'/></td></tr>
+    <tr><td>ایمیل</td><td><input type="text" id='tnnnn8'/></td></tr>
+    <tr><td>سایت</td><td><input type="text" id='tnnnn9'/></td></tr>
+    <tr><td>آدرس</td><td><input type="text" id='tnnnn10'/></td></tr>
+    <tr><td>توضیحات</td><td><input type="text" id='tnnnn11'/></td></tr>
+    <tr><td></td><td><a href="#" onclick="post_form()">ثبت</a></td></tr>
+    </tbody></table>
+    
+    
+    	    </div>
+
+</div>
+
+<div id="div_tbl_tels">
+    
+    <table id="tbl_search"><tbody><tr><td style="padding-left: 25px;">
+    <a href="#" onclick = "shm('div_frm')"><img id='img_add_new' src='images/tels/new_img.png'/> </a>
+    <a href="#" onclick = "location.reload(true)"><img src='images/tels/refresh.png'/> </a>
+    
+    </td><td>جستجو</td><td><input type="text" id="txt_search"/></td></tr></tbody></table>
+   <table  id="rounded-corner">
+    <thead>
+	
+    <tr id="tr_1"><th></th><th><img src='images/tels/low_stock_lock.png'/></th><th>سازمان</th><th>شخص</th><th>سمت</th><th>فعالیت</th><th>ثابت</th><th>فاکس</th><th>همراه</th><th>ایمیل</th><th>سایت</th><th>آدرس</th><th>توضیحات</th><th></th></tr>
+   </thead>
+   <tbody id ="__tbody">
+    
+   </tbody>
+   </table>
+
+    
+</div>
+
+
+
+
+
+
+</div>
+<script type="application/x-javascript">
+
+
+function get_private_id() {
+    if ($("#tnnnn12").is(':checked')) {
+	return "private";
+    } else {return "public"}
+}
+
+
+
+var header_and_footer_gen = [];
+function check_if_hf_inserted(divname){
+    for (var i=0;i<header_and_footer_gen.length;i++){
+	if (header_and_footer_gen[i] == divname) {
+	    return true;	}    }
+    return false;}
+function handle_img_onclose() {
+    $("#img_modal_close").click(function(){});}
+function shm(divname){
+    var hhh = $("#"+divname).html();
+	if (check_if_hf_inserted(divname) == false) {
+	    hhh = "<div id='div_mod_header'><img src='images/x.png' alt='' id='img_modal_close' class='simplemodal-close' /></div>" + hhh + "<div id='div_mod_footer'></div>";
+	    $("#" + divname).html(hhh);
+	    header_and_footer_gen.push(divname);	}
+   $("#"+divname).modal();
+   handle_img_onclose();
+   
+}
+
+
+$("#img_add_new").on({
+ "mouseover" : function() {
+    this.src = 'images/tels/new_img_hover.png';
+  },
+  "mouseout" : function() {
+    this.src='images/tels/new_img.png';
+  }
+});
+
+
+$(document).bind('keydown',  function(e){
+    if (e.which==113) {
+	shm("div_frm");
+    }
+    });
+
+String.prototype.format = function() {
+    var str = this;
+    for (var i = 0; i < arguments.length; i++) {
+	var reg = new RegExp("\\{" + i + "\\}", "gm");
+	str = str.replace(reg, arguments[i]);
+    }
+    return str;
+}
+
+
+
+    
+
+function generate_td(line) {
+    var b = line.split(",,,");
+    
+var ss = "<input type='checkbox' id='chk_{0}' checked class='chk_grd' />".format(b[0]);
+if (b[12] == "-1") {
+    ss = "<input type='checkbox' id='chk_{0}' class='chk_grd' />".format(b[0]);
+}
+    return "<tr id='tr_{11}'><td><img class='img_edit' src='images/edit.png'/></td><td>{12}</td><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td><td>{5}</td><td>{6}</td><td>{7}</td><td>{8}</td><td>{9}</td><td>{10}</td><td><img class='img_del' src='images/del.png'/></td></tr>".format(
+	b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9], b[10], b[11],b[0],ss);
+
+}
+
+function gen_tbl() {
+    $.post("py_tels.py", "getmetbl=sadfgvfewf", function(data) {
+	var s = []
+	s = data.split("li_");
+	var p = '';
+	for (var i = 0; i < s.length; i++) {
+	    p = p + generate_td(s[i]);
+	}
+	$(p).appendTo("#__tbody");
+	
+	$(".img_edit").hover(function(){
+	    $(".img_edit").css("cursor","pointer");
+	    });
+	$(".img_del").hover(function(){
+	    $(".img_del").css("cursor","pointer");
+	    });
+	
+	fire_check_box_event();
+    fire_img_onclick();
+     $("td:empty").html(" ");
+
+    });
+}
+gen_tbl();
+
+
+
+
+function fire_check_box_event() {
+
+    $(".chk_grd").click(function(data) {
+	var ss = $(this).parent().parent().attr("id").split("_")[1];
+	ss = ss + "ftr" + $(this).is(':checked').toString();
+	$.post("py_tels.py", "prv_pub=" + ss, function(data) {
+
+	});
+
+    });
+
+
+}
+
+function fire_img_onclick(){
+    $(".img_edit").click(function(){
+	shm("div_frm");
+	var td = $(this).parent().next().next();
+	$("#tnnnn1").val($(td).html());
+	$("#tnnnn2").val($(td).next().html());
+	$("#tnnnn3").val($(td).next().next().html());
+	$("#tnnnn4").val($(td).next().next().next().html());
+	$("#tnnnn5").val($(td).next().next().next().next().html());
+	$("#tnnnn6").val($(td).next().next().next().next().next().html());
+	$("#tnnnn7").val($(td).next().next().next().next().next().next().html());
+	$("#tnnnn8").val($(td).next().next().next().next().next().next().next().html());
+	$("#tnnnn9").val($(td).next().next().next().next().next().next().next().next().html());
+	$("#tnnnn10").val($(td).next().next().next().next().next().next().next().next().next().html());
+	$("#tnnnn11").val($(td).next().next().next().next().next().next().next().next().next().next().html());
+	$("#tnnnn12").prop('checked',$(this).parent().next().children(".chk_grd").is(':checked'));
+
+	datamode = $(this).parent().parent().attr("id").split("_")[1];
+	
+	});
+    $(".img_del").click(function(){
+	var id = $(this).parent().parent().attr("id").split("_")[1];
+	if (confirm("واقعا !!!! ")) {
+	    $.post("py_tels.py","delids="+id,function(data){
+		$("#tr_"+data).remove();
+		
+		});
+	}
+	
+	});
+}
+
+var datamode = ""
+
+function clear_form(){
+      var nodes = document.querySelectorAll("#div_frm input[type=text]");
+
+    for (var i = 0; i < nodes.length; i++) {
+    nodes[i].value = "";
+    }
+}
+
+
+function post_form() {
+    var nodes = document.querySelectorAll("#div_frm input[type=text]");
+    var txt = "";
+    for (var i = 0; i < nodes.length; i++) {
+	if (nodes[i].id.split('nnnn').length == 2) {
+	    txt = txt + "__" + nodes[i].id + "ffdd" + nodes[i].value;
+	}
+    }
+    txt = txt + "__12ffdd" + get_private_id()
+    if (datamode == "") {
+	$.post("py_tels.py", "insert=sadfgvfewf&" + "ins_vals=" + txt, function(data) {
+	    var d = data.split("__")[1];
+	    $.post("py_tels.py", "rowID=" + d, function(data) {
+		$(generate_td(data)).insertAfter("#__tbody");
+		fire_img_onclick();
+		clear_form();
+		 $("td:empty").html(" ");
+		 $.modal.close();
+	    });
+	});
+    } else {
+	$.post("py_tels.py", "edit=" + datamode + "&ins_vals=" + txt, function(data) {
+	    var ss = data.split(",,,");
+	    var id = ss[0].split('_')[0];
+	    $("#tr_"+id).remove();
+	    $(generate_td(data)).insertAfter("#__tbody");
+	    fire_img_onclick();
+	    clear_form();
+	     $("td:empty").html(" ");
+	     $.modal.close();
+	});
+	datamode = "";
+    }
+}
+
+
+$.fn.tableFilter = function(tableSelector) {
+    table = $(tableSelector);
+    updateTable = function() {
+	table.find('td').parent('tr:gt(0)').hide();
+	table.find('td:contains("' + $(this).val() + '")').parents('tr').show();
+    }
+    $(this).keyup(updateTable);
+}
+
+$("#txt_search").tableFilter("#rounded-corner");
+
+/*$("#txt_search").keypress(function(){
+    $("#rounded-corner td:contains('"+this.value+"')").parent().css("visibility","hidden");
+    
+    });*/
+</script>
+
+
+</body>
+
+
+</html>

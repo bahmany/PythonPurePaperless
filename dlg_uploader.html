@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>dlg_uploader.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=windows-1256">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script src="scripts/main_script.js" type="text/javascript"></script>
+  </head>
+  
+  <body>
+                        
+			<div>
+			 نام فایل انتخابی میبایست انگلیسی باشند - لطفا از آپلود نمودن فایل فارسی جلوگیری فرمایید
+			  
+			</div>
+<div id="div_fileuploader">                            
+<form enctype="multipart/form-data" action="save_file.py" method="post" id="filesender">
+<p>File1: <input type="file" name="file1" id="file1"></p>
+<p>File2: <input type="file" name="file2"></p>
+<p>File3: <input type="file" name="file3"></p>
+<p>File4: <input type="file" name="file4"></p>
+<p>File5: <input type="file" name="file5"></p>
+<p>File6: <input type="file" name="file6"></p>
+<p>File7: <input type="file" name="file7"></p>
+<p>File8: <input type="file" name="file8"></p>
+<input type="hidden" name="id" id="id">
+
+<p><input type="submit" value="ارسال به سرور" id="btn_sendform"/></p><p>
+ 
+<script type="text/javascript">
+  
+document.getElementById("id").value=qs["id"];
+
+</script>
+
+</form>
+</div>
+  </body>
+</html>

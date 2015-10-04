@@ -1,0 +1,373 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script src="scripts/jquery.maskedinput-1.2.2.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="main_style.css" />
+    <script src="ckeditor/ckeditor.js" type="text/javascript"></script>
+    <script src="scripts/jquery.inputhints.min.js" type="text/javascript"></script>
+    <script src="scripts/main_script.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="scripts/jquery-ui.css" type="text/css" />
+    <script src="scripts/jquery-ui.js" type="text/javascript"></script>
+    <script src="scripts/jalali.js" type="text/javascript"></script>
+    <style type="text/css">
+	input.hint { color: #888; }
+    </style>
+
+    <title>Untitled Document</title>
+</head>
+
+<body dir="rtl">
+
+
+<br>
+    <div  id="div_user">
+    <a href="javascript:location.reload(true);">پاک سازی فرم</a>
+    <br>
+
+
+    
+    <div>
+	
+    
+    <table>
+	<tbody>
+	    <tr>
+		<td>نام کاربری</td>
+		<td>رمز عبور</td>
+		<td>نام کامل</td>
+		<td>سمت</td>
+		<td>وضعیت</td>
+	    </tr>
+	    <tr>
+		
+		
+		<td><input type="text" id="obj_txt_username" /></td>
+		<td><input type="password" id="obj_txt_password" /></td>
+		<td><input type="text" id="obj_txt_fullname" /></td>
+		<td><input type="text" id="obj_txt_semat" /></td>
+		<td><input type="checkbox" id="obj_chk_active" checked="true" /></td>
+		
+	    </tr>
+	</tbody>
+    </table>
+    
+<table>
+    <tbody>
+	<tr>
+	    <td>انتخاب دبیرخانه  </td>
+	    <td>
+	    <select id = "obj_dabir">
+		
+	    </select>
+	    
+	    </td>
+	<tr>
+	    <td>آیا مسئولین دفتر در نظر گرفته شوند ؟</td>
+	    <td><input type="checkbox" id="obj_chk_monshi_ok" checked="true" />
+	     ( با انتخاب این گزینه اگر کسی مسئول دفتر داشته باشد نامه ابتدا به مسئول دفتر ارسال میشود )
+	    
+	    </td>
+	</tr>
+	<tr>
+	    <td>آیا شخص مورد نظر مسئول دفتر دارد ؟</td>
+	    <td><input type="checkbox" id="obj_chk_monshi" /></td>
+	</tr>
+	<tr>
+	    <td>لطفا نام مسئول دفتر را انتخاب نمایید</td>
+	    <td><input type="text" id="obj_txt_offname" /></td>
+	</tr>
+	
+    </tbody>
+</table>    
+    <div>
+	* توجه داشته باشید که نام کاربری قابل تغییر نیست لذا در ورود نام کاربری دقت کنید<br>
+	* پس از ورود اطلاعات کاربران دیگر نمیتوان آن را حذف نمود و فقط میتوان غیر فعال نمود<br>
+	
+    </div>
+    <br>
+    <a href="javascript:sendform();">ثبت اطلاعات</a>
+    <br>
+	<br>
+	    
+</div>
+
+
+
+<div>
+   <script type="text/javascript" src="scripts/jquery.dataTables.js"></script>   
+   <link rel="stylesheet" href="scripts/demo_table.css" type="text/css" />
+   
+   <div id="demo"></div>
+   <div id="example"></div>
+   
+
+    
+</div>
+
+<div>
+    
+    
+</div>
+
+
+</div>
+
+<div id="div_premission">
+<div id="div_prem">
+    
+<div id="usrprm_list">
+    
+</div>
+<div>
+    <a href="#" onclick="submit_prem_to_srv()">ثبت</a>
+</div>
+</div>
+</div>
+<script type="application/x-javascript">
+    
+    function clearform() {
+    document.getElementById("obj_txt_username").value="";
+    document.getElementById("obj_txt_password").value="";
+    document.getElementById("obj_txt_fullname").value="";
+    document.getElementById("obj_txt_semat").value="";
+    document.getElementById("obj_txt_offname").value="";
+    }
+    
+
+    
+    
+    
+function sendform() {
+    
+    // validating form :
+    if (document.getElementById("obj_chk_monshi").checked == true) {
+	    if (document.getElementById("obj_txt_offname").value == "")
+	    {
+		alert("لطفا نام مسئول دفتر را وارد نمایید");
+		return;
+	    }
+    }
+    
+    var str =
+    gl("obj_txt_username")[1]+":"+
+    gl("obj_txt_password")[1]+":"+
+    gl("obj_txt_fullname")[1]+":"+
+    gl("obj_txt_semat")[1]+":"+
+    gl("obj_chk_active")[1]+":"+
+    gl("obj_chk_monshi")[1]+":"+
+    gl("obj_txt_offname")[1]+":"+
+    gl("obj_chk_monshi_ok")[1]+":"+
+    gl("obj_dabir")[1];
+    
+    if (mod==1) {
+	// edit mode ..
+ $.post("py_user_manager.py","edithstr="+str,function(data, textStatus, jqXHR){
+	if (data[0]=="1") {
+	    alert("تغییرات مورد نظر اعمال گردید");
+	    $('#demo').html('لطفا صبر کنید جدول در حال بروز رسانی است');
+	    prepairtable();
+	    mod=0;
+	    $("#obj_txt_username").prop("disabled",false);
+	    //clear_form
+	    clearform();
+	} else
+	{
+	    alert("اطلاعات ثبت نشد - لطفا داده های ورودی را اصلاح فرمایید");
+	}
+	
+	});	
+	
+    } else
+    {
+    //insert mode ..
+    $.post("py_user_manager.py","hstr="+str,function(data, textStatus, jqXHR){
+	if (data[0]=="1") {
+	    alert("کاربر جدید ثبت گردید");
+	    clearform();
+
+	    $('#demo').html('لطفا صبر کنید جدول در حال بروز رسانی است');
+	    prepairtable();
+	    //clear_form
+	    
+	} else
+	{
+	    alert("اطلاعات ثبت نشد - لطفا داده های ورودی را اصلاح فرمایید");
+	}
+	
+	});
+}
+}
+
+
+
+
+
+prepairtable();
+
+function prepairtable() {
+    
+if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+
+    } else {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+	{
+            var str = xmlhttp.responseText;
+	    $('#demo').html( '<table cellpadding="0" cellspacing="0" border="0" class="display" id="example"></table>' );
+	    var pp=convert_py_gen_string_to_jtable_array("||",":::",str);
+	    // adding custom col :)))))))  
+	    for (var i=0; i < pp.length;i++) {
+		pp[i].push(
+"<a href='#' onclick='calluser(\""+pp[i][0]+"\");' > ویرایش <a/>  | <a href='#' onclick='getusprem(\""+pp[i][0]+"\");'> مجوز</a>  ");
+	    }
+	    
+	    
+	    $('#example').dataTable( {
+		    "aaData": pp ,
+		    "aoColumns":
+		    [
+			
+			{ "sTitle": "نام کاربری" },
+			{ "sTitle": "نام کامل" },
+			{ "sTitle": "سمت"},
+			{ "sTitle": "وضعیت"},
+			{ "sTitle": "نام مسئول دفتر"},
+			
+			{ "sTitle": "ارسال مستقیم"},
+			{ "sTitle": "ویرایش"}
+			
+			
+			
+		    ]         
+		} ); 
+	    
+	}
+    }
+xmlhttp.open("GET", "py_user_manager.py?pssws=gettbl", true);
+xmlhttp.send();
+   } 
+
+//function checkduplicateusername() {
+// if it is in insert mode 
+    check_on_blur("obj_txt_username","py_user_manager.py","chkdup","");
+    check_on_blur("obj_txt_offname" ,"py_user_manager.py","chkexis","obj_chk_monshi");
+    
+//}
+   
+function prepair_form_for_editing()
+{
+    $("#obj_txt_username").prop("disabled",true);
+    mod=1;
+    
+   
+}
+var mod=0;
+function calluser(uname) {
+    $.post("py_user_manager.py","cllon="+uname,
+	   function(data){
+	    
+	    f=[]
+	    f=data.split("::");
+	    
+    setValueToObject("obj_txt_username",f[1]);
+    setValueToObject("obj_txt_password",f[2]);
+    setValueToObject("obj_txt_fullname",f[3]);
+    setValueToObject("obj_txt_semat",f[4]);
+    setValueToObject("obj_chk_active",f[5]);
+    setValueToObject("obj_chk_monshi",f[6]);
+    setValueToObject("obj_txt_offname",f[7]);
+    setValueToObject("obj_chk_monshi_ok",f[8]);
+    setValueToObject("obj_dabir",f[9]);
+    
+    prepair_form_for_editing()
+	    
+	   });
+}
+
+//obj_dabir
+
+$.post("py_user_manager.py","seclst=Yhha", function(data)
+       {
+	    sdf = document.getElementById("obj_dabir");
+	    ws = data.split(":::")
+	    for (var i=1;i<ws.length;i++) {
+	    sdf.options[sdf.options.length] =
+		new Option(ws[i].split("ppp")[1], ws[i].split("ppp")[0]);
+		    
+}
+
+       });
+
+var chkboxpre=[];
+var sel_per_uid="0";
+function getusprem(uid) {
+     chkboxpre=[];
+ sel_per_uid="0";
+    sel_per_uid=uid;
+    $.post("py_user_manager.py","usprm="+uid,function (data)
+	   {
+	    //usrprm_list
+	    row = data.split("::");
+	    fr=""
+	    for (var i=1; i< row.length;i++) {
+		//checked="+row[i].split("pp")[2]+"
+		fr=fr+"<tr> <td><input type=\"checkbox\"  id=\"chk__"+row[i].split("pp")[0]+"\"/>  </td><td>"+row[i].split("pp")[1]+"</td> </tr>"
+	    }
+	    htmlstr =" <table><tbody><tr> <td>	</td><td>توضیحات</td> </tr>"+fr+"</tbody></table>";
+	$("#usrprm_list").html(htmlstr);
+
+	row = data.split("::");
+	     for (var i=1; i< row.length;i++)
+	     {
+		valll = row[i].split('pp')[2].replace(/(\r\n|\n|\r)/gm,"")
+		bl = ((valll=='true') ? true : false);
+		document.getElementById('chk__'+row[i].split('pp')[0]).checked = bl;
+		chkboxpre.push('chk__'+row[i].split('pp')[0]);
+	    } 
+	//document.getElementById("usrprm_list").innerHTML = htmlstr;
+	    });
+    	    $("#div_premission").show();
+	    $("#div_user").hide();
+}
+
+
+
+function submit_prem_to_srv()
+{
+    strtosend="";
+    for (var i=0;i<chkboxpre.length;i++) {
+	if (i==0) {
+	    strtosend = chkboxpre[i].split("__")[1]+"=~"+document.getElementById(chkboxpre[i]).checked;
+	}
+	else
+	{
+	    strtosend = strtosend + "bbb"+chkboxpre[i].split("__")[1]+"=~"+document.getElementById(chkboxpre[i]).checked;
+	}
+    }
+    $.post("py_user_manager.py","uid="+sel_per_uid+"&urpd="+strtosend,function(data)
+	   {
+	    $("#div_premission").hide();
+	    $("#div_user").show();
+	    
+	    });
+    
+}
+
+
+
+
+
+  $("#div_premission").hide();
+
+
+</script>
+
+
+</body>
+
+
+</html>

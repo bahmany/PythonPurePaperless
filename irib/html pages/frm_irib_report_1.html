@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd"
+    >
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<html lang="en">
+<head>
+    <title><!-- Insert your title here --></title>
+</head>
+ <link rel="stylesheet" href="css/main_style.css" type="text/css" />
+ <script src="scripts/jquery.min.js" type="text/javascript"></script>
+ <script src="scripts/main_script.js" type="text/javascript"></script>
+ <script src="scripts/jquery.maskedinput-1.2.2.js" type="text/javascript"></script>
+
+<body dir="rtl">
+    
+<div id="div_report" class="div_channel_lists">
+
+   
+</div>
+
+
+
+<script type="application/x-javascript">
+
+
+$.post("./classes/py_docx_gen.py","get_main_grid=aaThga",function(data)
+       {
+            document.getElementById("div_report").innerHTML = data;
+       });
+
+
+
+
+</script>
+</body>
+</html>

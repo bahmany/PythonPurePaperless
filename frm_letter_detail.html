@@ -1,0 +1,541 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <head>
+    <title>frm_letter_detail.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=windows-1256">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script type="text/javascript" src="scripts/jalali.js"></script>
+<script type="text/javascript" src="scripts/jquery.min.js"></script>
+<script type="text/javascript" src="scripts/main_script.js"></script>
+
+
+  </head>
+  
+  <body dir="rtl" style="font-family: tahoma; font-size: 12px;">
+    
+    
+    <div>
+      <img src="images/letter_read.png"/>
+    </div>
+   <div>
+
+   <style type="text/css">
+   #tbl_menu td
+   {
+    border-color: #325027;
+    border-radius: 10px 10px 10px 10px;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 12px;
+    margin-bottom: 10px;
+    padding: 10px 10px 10px 10px;
+   }
+      #tbl_menu td:hover
+   {
+    
+    background-color: #FFE7E7;
+    cursor: pointer;
+    
+   }
+   #letter_frame
+   {
+    border-color: #325027;
+    border-radius: 10px 10px 10px 10px;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 12px;
+    margin-bottom: 10px;
+    padding: 10px 10px 10px 10px;
+   }
+      #letter_frame_letter
+   {
+    margin-top: 15px;
+    border-color: #325027;
+    border-radius: 10px 10px 10px 10px;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 12px;
+    font-family: BNazaninRegular;
+    margin-bottom: 10px;
+    padding: 10px 10px 10px 10px;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow:  0 0 5px #888;
+    box-shadow:  0 0 5px #888;
+    
+   }
+   
+   .letter_detail td
+   {
+    border-color: #325027;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 11px;
+    margin-bottom: 10px;
+    padding: 7px 7px 7px 7px;
+    font-family: 'tahoma';
+   }
+   .titleOfTd
+   {
+    background-color: #BDB6FB;
+    font-weight: bold;
+   }
+   </style>
+<div><span id="td_erja_div"></span>
+
+  <span id="td_scans">ندارد</span>
+
+</div>
+   <table id="tbl_menu">
+    <tbody>
+      <tr>
+	<td id="td_erja" onclick="getdabir();">امضا و تائید</td>
+	<td id="td_attach"  onclick="openattatc();">ضمیمه کرده فایل های غیر تصویری</td>
+	<td id="td_attachLetterHardCopy"  onclick="openattatcscn();">انتقال فایل تصویری نامه</td>
+	
+	<td id="td_edit" onclick="editletter()">ویرایش</td>
+	<td id="td_go_erja"  onclick="gotoerja()">عملیات و ارجاع</td>
+	<td id="td_go_private_baygani"  onclick="erja_to_baygani()">انتقال به بایگانی شخصی</td>
+	<td id="td_go_erja_list" >مشاهده سوابق</td>
+	<td onclick="window.location.href='py_main.py?mid=4'">بازگشت به میز کار</td>
+	<td id="td_del"onclick="deleteit()">حذف</td>
+      </tr>
+
+    </tbody>
+   </table>
+   
+ <div id="letter_frame">
+
+
+
+  <table  id="div_name_varede"  class="letter_detail" cellspacing=0 cellpadding=0>
+    <tbody>
+      <tr>
+	<td colspan=6 class="titleOfTd">نامه وارده</td>
+      </tr>
+      <tr>
+	<td>شرکت ارسال کننده</td>
+ 	<td>x02</td>
+ 	<td>نام ارسال کننده</td>
+	<td>x03</td>
+ 	<td>تاریخ دریافت</td>
+ 	<td>x04</td>
+      </tr>
+      <tr>
+	<td>نوع ارسال</td>
+ 	<td>x05</td>
+ 	<td>شماره نامه</td>
+	<td>x06 </td>
+ 	<td>تاریخ نامه</td>
+ 	<td>x07</td>
+      </tr>
+      <tr>
+	<td>تعداد صفحات پیوستی</td>
+ 	<td>x08</td>
+ 	<td>شماره نامه های مرتبط</td>
+	<td colspan=3>x09 </td>
+      </tr>
+      <tr>
+	<td>موضوع</td>
+	<td colspan=5 class="titleOfTd">x15</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <table id="div_name_dakheli" class="letter_detail" cellspacing=0 cellpadding=0>
+    <tbody>
+      <tr>
+	<td colspan=6 class="titleOfTd">نامه داخلی</td>
+      </tr>
+      <tr>
+	<td>نام دریافت کننده</td>
+ 	<td>x02</td>
+ 	<td>تاریخ ارسال</td>
+	<td>x04	</td>
+ 	<td>نوع ارسال</td>
+ 	<td>x05</td>
+      </tr>
+      <tr>
+	<td>تعداد صفحات پیوستی</td>
+ 	<td>x08</td>
+ 	<td colspan=2>شماره نامه های مرتبط</td>
+	<td colspan=2>x09 </td>
+ 	<td></td>
+ 	
+      </tr>
+            <tr>
+	<td>موضوع</td>
+	<td colspan=5 class="titleOfTd">x15</td>
+      </tr>
+    </tbody>
+  </table>
+
+    
+
+
+
+  <table id="div_name_sadere" class="letter_detail" cellspacing=0 cellpadding=0>
+    <tbody>
+      <tr>
+	<td colspan=6 class="titleOfTd">نامه صادره</td>
+      </tr>
+      <tr>
+	<td>شرکت دریافت کننده</td>
+ 	<td>x02</td>
+ 	<td>نام دریافت کننده</td>
+	<td>x03</td>
+ 	<td>تاریخ ارسال</td>
+ 	<td>x04</td>
+      </tr>
+      <tr>
+	<td>نوع ارسال</td>
+ 	<td>x05</td>
+ 	<td>شماره نامه</td>
+	<td>x06 </td>
+ 	<td>تعداد صفحات پیوستی</td>
+ 	<td>x08</td>
+      </tr>
+      <tr>
+ 	<td>شماره نامه های مرتبط</td>
+	<td colspan=5>x09 </td>
+      </tr>
+            <tr>
+	<td>موضوع</td>
+	<td colspan=5 class="titleOfTd">x15</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <div id="letter_frame_letter">
+    <table style="width: 100%;">
+      <tbody>
+	<tr>
+	  <td style="width:90px; vertical-align: top"><img src="images/logo_of_farrokh.png"><br>صنایع فولاد فرخشهر</td>
+	  <td style="vertical-align: top; text-align: center; font-family: 'BYekan'">باسمه تعالی</td>
+	  <td id = "td_l_inf" style="width:100px; vertical-align: bottom">شماره : <br> تاریخ : <br> پیوست :</td>
+	</tr>
+	<tr>
+<td colspan=3 style="margin-bottom: 13px; margin-top: 8px; border-top-style: solid; border-top-width: 1px; border-top-color: black;">
+<br>
+  <table style="width: 100%">
+    <tbody>
+      <tr>
+	<td><span style="font-size:13px; font-weight: bold;"> موضوع : x15  </span></td>
+      </tr>
+      <tr>
+	<td>
+	  <br>
+	  سلام علیکم </td>
+      </tr>
+      
+    </tbody>
+  </table>
+  <div style="width: 100%; alignment-adjust: baseline;">
+  x12</div>
+  <div>
+    <table><tbody><tr>
+    
+    <td></td>
+    <td></td>
+    
+    </tr></tbody></table>
+    
+  </div>
+</td>
+</tr>
+      </tbody>
+    </table>
+    
+    
+    
+  </div>
+ </div>  
+   
+   
+   
+   
+   
+   
+   
+   <table><tbody>
+    <tr>
+      <td colspan=2>
+	
+	
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 200px; vertical-align: top;" id="td_erja_list">
+	لطفا صبر کنید ...
+	
+      </td>
+      <td>
+	
+      </td>
+    </tr>
+    
+   </tbody></table>
+   
+   
+   
+   
+  
+  <br>
+   
+    
+    
+    
+  
+   </div>
+   <div>
+    
+ </div>
+   
+   <style type="text/css">
+   
+   .read_erja{
+    background-color: transparent;
+    background-image: url('images/erja_read.png');
+    background-position: left;
+    background-repeat: no-repeat;
+   }
+    
+   .build_erja{
+    background-color: transparent;
+    background-image: url('images/erja_build.png');
+    background-position: left;
+    background-repeat: no-repeat;
+   }
+   
+   .unread_erja{
+    background-color: transparent;
+    background-image: url('images/erja_unread.png');
+    background-position: left;
+    background-repeat: no-repeat;
+   }
+   
+   </style>
+   
+   
+<script type="text/javascript">
+var id = qs["id"];
+var dddd = id;
+var w = [];
+var id_type = 0;
+var has_sign;
+has_sign = false;
+	$("#td_attachLetterHardCopy").hide();
+
+function add_variant() {
+  if (window.XMLHttpRequest) {
+    xmlhttp = new XMLHttpRequest();
+
+  } else {
+    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      var str = xmlhttp.responseText;
+      var b = str.split("|");
+      w = b;
+      //alert(w);
+      id_type = w[3];
+      b[6] = JalaliDate.gregorianToJalali(
+      b[6].split(" ")[0].split("-")[0], b[6].split(" ")[0].split("-")[1], b[6].split(" ")[0].split("-")[2])
+      b[9] = JalaliDate.gregorianToJalali(
+      b[9].split(" ")[0].split("-")[0], b[9].split(" ")[0].split("-")[1], b[9].split(" ")[0].split("-")[2])
+      var h = [];
+      for (var i = 0; i < b.length - 1; i++) {
+	var ss = "<strong><font color=\"#008040\">" + b[i] + "</font></strong>";
+	h[i] = ss;
+      }
+      id = h[0];
+      for (var i = 0; i < 3; i++)  {
+	document.body.innerHTML = document.body.innerHTML.replace("x01", h[3]);
+	document.body.innerHTML = document.body.innerHTML.replace("x02", h[1]);
+	document.body.innerHTML = document.body.innerHTML.replace("x03", h[2]);
+	document.body.innerHTML = document.body.innerHTML.replace("x04", h[9]);
+	document.body.innerHTML = document.body.innerHTML.replace("x05", h[5]);
+	document.body.innerHTML = document.body.innerHTML.replace("x06", h[8]);
+	document.body.innerHTML = document.body.innerHTML.replace("x07", h[9]);
+	document.body.innerHTML = document.body.innerHTML.replace("x08", h[7]);
+	document.body.innerHTML = document.body.innerHTML.replace("x09", h[4]);
+	document.body.innerHTML = document.body.innerHTML.replace("x12", unescape(b[10]));
+	document.body.innerHTML = document.body.innerHTML.replace("x15", b[12]);
+	document.body.innerHTML = document.body.innerHTML.replace("x15", b[12]);
+
+      }
+
+      $("#div_name_varede").hide();
+      $("#div_name_sadere").hide();
+      $("#div_name_dakheli").hide();
+
+      if (b[3] == "1") {
+	$("#div_name_varede").show();
+      }
+      if (b[3] == "2") {
+	$("#div_name_sadere").show();
+      }
+      if (b[3] == "3") {
+	$("#div_name_dakheli").show();
+      }
+
+      if (b[14] == "no") {
+	$("#td_attach").show();
+	$("#td_edit").show();
+	$("#td_del").show();
+		$("#td_attachLetterHardCopy").hide();
+	document.getElementById("td_scans").innerHTML = handle_att_div(1, b[15]);
+      }
+      if (b[14] != "no") {
+	has_sign = true;
+	$("#td_attach").hide();
+	$("#td_edit").hide();
+	$("#td_del").hide();
+		$("#td_attachLetterHardCopy").show();
+	document.getElementById("td_erja").innerHTML = "امضا شده ";
+	document.getElementById("td_erja_div").innerHTML = "کد امضای دیجیتال :" + "<b>" + b[14] + "</b>" + "    ";
+	document.getElementById("td_scans").innerHTML = handle_att_div(2, b[15]);
+
+
+      }
+
+
+      $.post("py_erja_manager.py", "erj_is_ok=" + qs["id"], function(data) {
+data=data.replace(/(\r\n|\n|\r)/gm,"");
+	if ( data[0] == "2" ) {
+	  $("#td_go_erja").show();
+	  $("#td_go_private_baygani").show();
+	  
+	} else {
+	  $("#td_go_erja").hide();
+	  $("#td_go_private_baygani").hide();
+	}
+
+
+      });
+
+
+      //alert(b[13]);
+    }
+  }
+
+  xmlhttp.open("GET", "py_letter_read.py?id=" + id + "&type=" + id_type, true);
+  xmlhttp.send();
+}
+
+add_variant();
+
+function getdabir() {
+  
+  if (!has_sign) {
+has_sign=true;
+
+
+    if (window.XMLHttpRequest) {
+      xmlhttp = new XMLHttpRequest();
+    } else {
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+	var str = xmlhttp.responseText;
+	has_sign = true;
+	document.getElementById("td_erja").innerHTML = "امضا شده";
+	document.getElementById("td_erja_div").innerHTML = str;
+	$("#td_edit").hide();
+	$("#td_attach").hide();
+	$("#td_del").hide();
+	$("#td_attachLetterHardCopy").show();
+
+	document.getElementById("td_scans").innerHTML = handle_att_div(2, w[15]);
+
+      }
+    }
+
+    xmlhttp.open("GET", "py_secretariat_manager.py?id=" + w[0] + "&_type=" + w[3], true);
+    xmlhttp.send();
+
+  }
+}
+
+
+function openattatc() {
+  window.location.href = def_url + "3&id=" + dddd;
+}
+
+function openattatcscn() {
+  window.location.href = def_url + "14&id=" + dddd;
+}
+
+function editletter() {
+  window.location.href = def_url + "1&id=" + dddd;
+}
+
+
+
+function gotoerja() {
+  window.location.href = def_url + "6&id=" + qs['id'];
+}
+
+function getErjaKist() {
+  $.post("py_erja_manager.py", "erj_l_id=" + id, function(data) {
+    document.getElementById("td_erja_list").innerHTML = data;
+    $("#td_erja_list div div:contains('خوانده نشده')").addClass("unread_erja");
+    $("#td_erja_list div div:contains('خوانده شده')").addClass("read_erja");
+    $("#td_erja_list div div:contains('ثبت در')").addClass("build_erja");
+  });
+}
+
+function deleteit() {
+  if (confirm("آیا از حذف نامه ی انتخابی اطمینان دارید ؟")) {
+    
+  
+  $.post("py_erja_manager.py", "l_id=" + qs["id"] + "&dddta=zzz43156)))", function(data) {
+
+    window.location.href = "py_main.py?mid=4";
+
+  });}
+}
+
+getErjaKist();
+
+$("#td_del").hide();
+
+
+
+
+function erja_to_baygani() {
+  if (confirm("آیا شما میخواهید نامه انتخابی را به بایگانی انتقال دهید")) {
+      $.post("py_erja_manager.py", "l_id=" + qs["id"] + "&dddta=zzz43160)))", function(data) {
+   window.location.href = "py_main.py?mid=4";
+  });
+  }
+
+}
+
+
+
+$.post("py_user_manager.py?","checkscanned="+qs["id"],function(data)
+       {
+        if (data[0] != "0") {
+            document.getElementById("td_attachLetterHardCopy").innerHTML="مشاهده تصویر نامه ";
+            
+        }
+       });
+
+
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>

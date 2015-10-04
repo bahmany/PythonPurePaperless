@@ -1,0 +1,311 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+
+
+@font-face {
+    font-family:'BYekan';/*تعریف یک نام برای فونت*/
+    src:url('BYekan.eot');/*اکسپلورر 9 به بعد*/
+    src:local('bYekan'),/*بررسی نصب بودن فونت در سیستم کاربر*/
+        local('b Yekan'),/*برای برخی از مرورگرها مانند سافاری*/
+        url('BYekan.eot?#iefix') format('embedded-opentype'),/*هک برای اکسپلورر 8 و ماقبل*/
+        url('BYekan.woff') format('woff'),/*مرورگر های جدید*/
+        url('BYekan.ttf') format('truetype'),/*تمام مرورگرها به جزء اکسپلورر*/
+        url('BYekan.svg#BYekan') format('svg');/*نسخه های قدیمی سیستم عامل iOS*/
+    font-style:normal;
+    font-weight:normal;
+    
+    /*
+ */
+    
+}
+
+@font-face {
+       font-family: 'BNazaninRegular';
+    src: url('bnazanin.eot');
+    src: url('bnazanin.eot') format('embedded-opentype'),
+         url('bnazanin.woff') format('woff'),
+         url('bnazanin.ttf') format('truetype'),
+         url('bnazanin.svg#BNazaninRegular') format('svg');
+
+
+}
+
+
+
+
+body {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	direction: rtl;
+	background-color: #C4C4FF;
+}
+
+
+
+
+#tbl_main_ td{
+    vertical-align: top;
+}
+
+
+
+
+#div_frm {display:none;}
+
+/* Overlay */
+#simplemodal-overlay {background-color:#000;}
+
+/* Container */
+#div_frm {
+    width:506;
+
+
+
+    padding:12px;
+}
+
+
+
+
+
+#div_tels_content{
+background-image: url(images/modal_dialog/body.png);
+background-repeat: repeat-y;
+padding-right: 20px;
+
+
+
+}
+
+#img_modal_close:hover{
+    cursor: pointer;
+}
+
+#div_frm input {
+    width : 300px;
+}
+
+#div_mod_header{
+    background-image: url(images/modal_dialog/header.png);
+    width: 506px;
+    height: 77px;
+    text-align: left;
+}
+
+#div_mod_footer{
+    background-image: url(images/modal_dialog/footer.png);
+    width: 506px;
+    height: 19px;  
+}
+
+
+#div_frm .simplemodal-data {padding:8px;}
+#div_frm code {background:#141414; border-left:3px solid #65B43D; color:#bbb; display:block; font-size:12px; margin-bottom:12px; padding:4px 6px 6px;}
+#div_frm a {color:#ddd;}
+#div_frm a.modalCloseImg {background:url(images/x.png) no-repeat; width:25px; height:29px; display:inline; z-index:3200; position:absolute; top:-15px; right:-16px; cursor:pointer;}
+#div_frm h3 {color:#84b8d9;}
+
+#div_tels{
+    background-color: #005f8c;
+    -webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+border-radius: 20px;
+}
+
+#tbl_search{
+    background-color: #005f8c;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 55px;
+    padding-right: 55px;
+    font-size: 10px;
+    color: #FFFFFF;
+    margin-right: 30px;
+}
+
+#tbl_search td{
+    font-size: 10px;
+
+}
+
+#rounded-corner {
+    font-family: Tahoma;
+    font-size: 11px;
+    text-align: justify;
+    border-spacing: 1px;
+    border-color: #d6d6d6;
+  empty-cells: show;
+  width:100%;
+  background-color: #eaeaff;
+}
+
+#rounded-corner thead tr{
+    background-color: #005f8c;
+    font-family: BYekan;
+    font-size: 14px;
+    color: #c1e0ff;
+
+}
+
+#rounded-corner thead tr th{
+    border-style: solid;
+    border-width: 1px;
+    border-color: #0080c0;
+    padding-left: 8px;
+    padding-right: 8px;
+    text-align: center;
+    
+    }
+    
+#__tbody tr{
+background-color: #ffffff;
+cursor: pointer;
+}
+#__tbody tr:hover{
+background-color: #f1f1e2;
+cursor: pointer;
+
+ 
+
+#rounded-corner  tr td{
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 10px;
+    
+ 
+}
+
+#div_frm{
+    font-family: tahoma;
+    font-size: 12px;
+}
+
+input{
+    font-family: tahoma;
+    font-size: 12px;
+}
+
+
+
+#div_main {
+	width: 900px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #FFF;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	-khtml-border-radius: 20px;
+	border-radius: 20px;
+}
+
+table tr td
+{
+	font-size: 14px;
+}
+
+
+.div_main_1 {
+	border: 1px solid #999999;
+	font-family: tahoma;
+	font-size: 12px;
+	font-weight: bold;
+	background-color: #DFE8FF;
+	padding: 5px 10px 5px 10px;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	-khtml-border-radius: 20px;
+	border-radius: 20px;
+}
+
+.div_main_1_1 {
+	margin: 4px;
+	border: 1px solid #999999;
+	font-family: tahoma;
+	font-size: 12px;
+	font-weight: normal;
+	background-color: #FFFFFF;
+	padding: 5px;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	-khtml-border-radius: 20px;
+	border-radius: 20px;
+}
+
+div_main_1_1 table td {
+	font-size: 12px;
+	font-family: tahoma
+}
+
+.img_devider {
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+#div_main input {
+	color: Black;
+	font-size: 12px;
+	border-style: solid;
+	background-color: #F7F7EE;
+	border-color: Green;
+	font-family: tahoma;
+	border-width: 1px;
+	font-weight: normal;
+	height: 21px;
+	width: 150px;
+	padding: 2
+}
+
+.no_null_inputs {
+	color: Black;
+	font-size: 12px;
+	border-style: solid;
+	background-color: #FFF7F0;
+	border-color: Green;
+	font-family: tahoma;
+	border-width: 1px;
+	font-weight: bold
+}
+
+.ok_null_inputs {
+	color: Black;
+	font-size: 12px;
+	border-style: solid;
+	background-color: #F7F7EE;
+	border-color: Green;
+	font-family: tahoma;
+	border-width: 1px;
+	font-weight: normal
+}
+
+#selector {
+	height: 10px;
+	color: Purple;
+
+	font-style: normal;
+	font-size: 12px;
+	text-decoration: underline;
+	font-family: tahoma;
+	font-weight: bold
+}
+
+#selector input {
+	height: 10px;
+	color: Purple;
+	width: 10px;
+	font-style: normal;
+	font-size: 14px;
+	text-decoration: underline;
+	font-family: tahoma;
+	font-weight: bold
+}
+
+#div_fileuploader input {
+	height: 20px;
+	width: 200px
+}
+
+#testcolor {
+	
+}

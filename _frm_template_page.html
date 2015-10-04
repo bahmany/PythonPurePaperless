@@ -1,0 +1,144 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd" >
+<html lang="en">
+    
+    
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script src="scripts/jquery.maskedinput-1.2.2.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="main_style.css" />
+    
+    <script type="text/javascript" src="fckeditor/fckeditor.js"></script>
+
+    <script src="scripts/jquery.inputhints.min.js" type="text/javascript"></script>
+    <script src="scripts/main_script.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="scripts/jquery-ui.css" type="text/css" />
+    <script src="scripts/jquery-ui.js" type="text/javascript"></script>
+    <script src="scripts/jalali.js" type="text/javascript"></script>
+    <script src="scripts/jquery.dataTables.js" type="text/javascript"></script>
+    <script src="scripts/jquery.simplemodal-1.4.4.js" type="text/javascript"></script>
+    
+    <style type="text/css">
+	input.hint { color: #888; }
+    </style>
+
+    <script type="application/x-javascript">
+    
+    var isnew=false;
+    </script>
+    
+    
+    
+<head>
+    <title>MIS FSI</title>
+</head>
+<body  dir="rtl" style="font-family: tahoma; font-size: 12px; background-color: #FFFFFF; padding: 0px 0px 0px 0px; margin: 0px 0px 0px 0px; overflow: hidden;">
+    <div style=" float: right;  position: fixed; overflow: hidden; top: 0px; left: 0px; right: 0px; height: 47px; background-color: #A290FF; ">
+        
+        <img style=" float: right;" src="images/logo_main_page.jpg" />
+        <div><span id="timerr">oclock</span></div>
+        
+        
+        <span> <span id="unameplace"> #user name </span> خوش آمدید <a href="py_logout.py">خروج از سیستم</a>  </span>
+    </div>
+    
+    <div style="position: fixed; top:47px; left: 0px; right: 0px; bottom: 0px; font-family: tahoma; font-size: 12px;  background-image: url(images/logo_topBackg.jpg); background-repeat: repeat-x; background-position: top; ">
+        
+    <div style="font-family: BYekan; padding-bottom: 10px; padding-left: 4px; padding-right: 7px; padding-top: 20px; position: fixed; top:47px; bottom: 0px; right: 0px; width: 170px; border-left-style: solid; border-color: #E3DEFF; border-width: 1px; ">
+       
+       <table><tbody>
+       
+       <tr><td colspan=2><div id="div_unseen">نامه های وارده</div></td></tr>
+       <tr><td><img src="images/Inbox_mini.png"></td><td><a href="py_main.py?mid=4" >میزکار</a></td></tr>
+       <tr><td><img src="images/Letters.png"></td><td><a href="py_main.py?mid=1" >ایجاد نامه جدید</a></td></tr>
+       <tr><td><img src="images/police.png"></td><td><a href="py_main.py?mid=15" >نگهبانی</a></td></tr>
+       <tr><td><img src="images/users.png"></td><td><a href="py_main.py?mid=5" >مدیریت کاربران</a></td></tr>
+
+       <tr><td><img src="images/abse.png"></td><td><a href="http://91.98.130.86:83" >حضور و غیاب</a></td></tr>
+       <tr><td><img src="images/Accounting.png"></td><td><a href="http://91.98.130.84" >سیتریکس مالی</a></td></tr>
+       <tr><td><img src="images/Off.png"></td><td><a href="http://91.98.130.85:81/hr/Book1.htm" >فرم های اداری</a></td></tr>
+       <tr><td><img src="images/Perm.png"></td><td><a href="py_main.py?mid=16" >فروش</a></td></tr>
+       <tr><td><img src="images/Perm.png"></td><td><a href="py_main.py?mid=17" >تلفن ها</a></td></tr>
+
+       <tr><td><img src="images/web.png"></td><td><a href="http://www.tasico.ir" >www.tasico.ir</a></td></tr>
+       <tr><td><img src="images/email.png"></td><td><a href="http://webmail.tasico.ir" >ورود به ایمیل</a></td></tr>
+       <tr><td></td><td><a href="help OfAutomation.pdf">دریافت فایل راهنما</a></td></tr>
+      
+       
+       </tbody></table>
+       
+       
+       <br>
+        
+       <br>
+        
+        
+        
+        
+        <br>
+        
+    </div>
+    <div id="content" style="padding-bottom: 10px; padding-left: 4px; padding-right: 7px; position: fixed; top:67px; bottom: 0px; right: 200px; left: 0px; overflow: scroll">
+     
+        
+        ##content 
+    </div>
+    
+      
+        
+    </div>
+    
+    
+    <script type="application/x-javascript">
+
+
+function getCurrentDateAndConvert(where_to_put)
+{
+
+var month = Date.parse("##timeee").getMonth();
+var day = Date.parse("##timeee").getDate();
+var year = Date.parse("##timeee").getFullYear();
+
+var sss=convert_Milady_to_shamsi(String(year)+"/"+String(month)+"/"+String(day))
+sss =sss+" "+
+(currentTime.getHours().toString())+":"+
+(currentTime.getMinutes().toString())+":"+
+(currentTime.getSeconds().toString());
+
+document.getElementById(where_to_put).innerHTML = sss;
+setTimeout("getCurrentDateAndConvert('timerr');",1000)
+}
+
+
+
+
+
+//getCurrentDateAndConvert("timerr");
+   
+   
+   seeIt();
+   
+   //isFini = true;
+   function seeIt() {
+     //if (isFini) {
+        //isFini = false;
+        $.post("py_user_manager.py","i=feee-34a0-edd1-w",function(data){
+            data = data.replace(/(\r\n|\n|\r)/gm,"");
+            if (data!="0") {
+                document.getElementById("div_unseen").innerHTML ="در کارتابل شما "+data+" خوانده نشده وجود دارد ";
+		isnew=true;
+            } else
+            {document.getElementById("div_unseen").innerHTML ="تمامی نامه ها خوانده شده است"}
+            
+            
+            setTimeout("seeIt()",90000);
+        });
+     //}
+   }
+   
+   
+
+    </script>
+    <!-- Insert your content here -->
+</body>
+</html>
