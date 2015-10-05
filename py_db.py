@@ -15,8 +15,8 @@ from pyDes import *
 
 def GetDB():
     db = MySQLdb.connect(host="127.0.0.1", # your host, usually localhost
-                         user="root", # your username
-                         passwd="009100", # your password
+                         user="", # your username
+                         passwd="", # your password
                          db="automation",
                          charset="utf8",
                          use_unicode=True) # name of the data base
